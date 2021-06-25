@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".LayoutFragment"
+    android:background="@color/colorBackground" >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mainRelativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="473dp">
+
+        <ToggleButton
+            android:id="@+id/selectAllToggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:textOff="All"
+            android:textOn="All" />
+
+        <RelativeLayout
+            android:id="@+id/panelsLayout"
+            android:layout_width="503dp"
+            android:layout_height="606dp"
+           android:translationX="-20dp"
+          android:translationY="-20dp"
+            android:background="@color/defult_12"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Brightness"
+        android:layout_marginTop="25dp"
+        android:textStyle="bold"
+        android:layout_marginHorizontal="25dp"
+        android:textSize="16dp"
+        android:fontFamily="@font/roboto"/>
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/brightnessSlider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:value="50"
+        android:valueFrom="0"
+        android:valueTo="100"
+        app:labelBehavior="gone"
+        app:thumbColor="@color/Secondary_1"
+        app:trackColorActive="@color/Secondary_1"
+        app:trackColorInactive="#61BB86FC"
+        app:trackHeight="4dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Temperature"
+        android:layout_marginTop="25dp"
+        android:textStyle="bold"
+        android:layout_marginHorizontal="25dp"
+        android:textSize="16dp"
+        android:fontFamily="@font/roboto"/>
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/kelvinSlider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        app:trackHeight="4dp"
+        android:value="50"
+        android:valueFrom="0"
+        android:valueTo="100"
+        app:labelBehavior="gone"
+        app:thumbColor="@color/Secondary_1"
+        app:trackColorActive="@color/Secondary_1"
+        app:trackColorInactive="#61BB86FC"/>
+
+
+
+</LinearLayout>

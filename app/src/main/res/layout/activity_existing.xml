@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:orientation="vertical"
+    tools:context=".existingActivity">
+
+    <ImageButton
+        android:id="@+id/backBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="#00494848"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginVertical="10dp"
+        android:fontFamily="@font/allerta"
+        android:text="Enter Nebula IP Address"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:orientation="horizontal">
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:backgroundTint="@color/Secondary_1"
+            android:ems="10"
+            android:inputType="number" />
+
+        <TextView
+            android:id="@+id/dotText1"
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:text="."
+            android:textSize="36sp" />
+
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:backgroundTint="@color/Secondary_1"
+            android:ems="10"
+            android:inputType="number" />
+
+        <TextView
+            android:id="@+id/dotText2"
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:text="."
+            android:textSize="36sp" />
+
+        <EditText
+            android:id="@+id/editText3"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:backgroundTint="@color/Secondary_1"
+            android:ems="10"
+            android:inputType="number" />
+
+        <TextView
+            android:id="@+id/dotText3"
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:text="."
+            android:textSize="36sp" />
+
+        <EditText
+            android:id="@+id/editText4"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:backgroundTint="@color/Secondary_1"
+            android:ems="10"
+            android:inputType="number" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/connectBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginVertical="20dp"
+        android:backgroundTint="@color/Secondary_1"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Connect"
+        android:textColor="#FFFFFF" />
+
+</LinearLayout>

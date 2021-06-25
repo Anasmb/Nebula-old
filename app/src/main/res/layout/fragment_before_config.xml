@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:orientation="vertical">
+
+    <ImageButton
+        android:id="@+id/backBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="#00494848"
+        android:tag="backBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
+
+    <TextView
+        android:id="@+id/before"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/allerta"
+        android:text="Before Connecting"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/routerImg"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginVertical="40dp"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="#FFFFFF"
+        app:srcCompat="@drawable/ic_baseline_router_24" />
+
+    <TextView
+        android:id="@+id/routerTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/allerta"
+        android:text="Make sure your router have 2.4 Ghz Enabled.
+                      Nebula will only work with 2.4 Ghz networks."
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/panelImg"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginVertical="40dp"
+        android:layout_gravity="center_horizontal"
+        app:srcCompat="@drawable/polygon_4" />
+
+    <TextView
+        android:id="@+id/panelTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/allerta"
+        android:text="Only connect the controller first.
+                                              Do not connect any panels to the controller yet !!"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/wifiImg"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginVertical="30dp"
+        android:layout_gravity="center_horizontal"
+        app:srcCompat="@drawable/ic_baseline_wifi_24" />
+
+    <TextView
+        android:id="@+id/wifiTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/allerta"
+        android:text="Make sure you're connected to Nebula MK1
+Wi-Fi,                the password is 123456789."
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/nextBtn"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginVertical="50dp"
+        android:backgroundTint="@color/Secondary_1"
+        android:fontFamily="@font/roboto_bold"
+        android:tag="nextBtn"
+        android:text="Next"
+        android:textColor="#FFFFFF" />
+
+</LinearLayout>

@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/colorBackground">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Customize"
+        android:textSize="24dp"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Clock Speed"
+            android:layout_marginTop="30dp"
+            android:textStyle="bold"
+            android:layout_marginHorizontal="25dp"
+            android:textSize="18dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="#CCFFFFFF"/>
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/clockSlider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            app:trackHeight="4dp"
+            android:value="50"
+            android:valueFrom="0"
+            android:valueTo="100"
+            app:labelBehavior="gone"
+            app:thumbColor="@color/Secondary_1"
+           app:trackColorActive="@color/Secondary_1"
+            app:trackColorInactive="#61BB86FC"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="30dp">
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Brightness"
+            android:layout_marginTop="25dp"
+            android:textStyle="bold"
+            android:layout_marginHorizontal="25dp"
+            android:textSize="18dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="#CCFFFFFF"/>
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/brightnessSlider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            app:trackHeight="4dp"
+            android:value="50"
+            android:valueFrom="0"
+            android:valueTo="100"
+            app:labelBehavior="gone"
+            app:thumbColor="@color/Secondary_1"
+            app:trackColorActive="@color/Secondary_1"
+            app:trackColorInactive="#61BB86FC"/>
+
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="25dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Modes"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:fontFamily="@font/roboto"
+            android:textColor="#CCFFFFFF"/>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginVertical="15dp">
+
+
+            <Button
+                android:id="@+id/fadeBtn"
+                android:layout_width="20dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="50dp"
+                android:backgroundTint="#30B1BF"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Fade"
+                android:textColor="#000000"
+                android:layout_weight="1"/>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"/>
+
+
+            <Button
+                android:id="@+id/randomBtn"
+                android:layout_width="20dp"
+                android:layout_height="60dp"
+               android:layout_marginRight="50dp"
+                android:backgroundTint="#30B1BF"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Random"
+                android:textColor="#000000"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginVertical="15dp">
+
+
+            <Button
+                android:id="@+id/staticBtn"
+                android:layout_width="20dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="50dp"
+                android:backgroundTint="#30B1BF"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Static"
+                android:textColor="#000000"
+                android:layout_weight="1"/>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"/>
+
+
+            <Button
+                android:id="@+id/splitBtn"
+                android:layout_width="20dp"
+                android:layout_height="60dp"
+                android:layout_marginRight="50dp"
+                android:backgroundTint="#30B1BF"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Split"
+                android:textColor="#000000"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginVertical="15dp">
+
+
+            <ImageButton
+                android:id="@+id/leftBtn"
+                android:layout_width="20dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="50dp"
+                android:layout_weight="1"
+                android:backgroundTint="#30B1BF"
+                app:srcCompat="@drawable/ic_left_arrow" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"/>
+
+
+            <ImageButton
+                android:id="@+id/rightBtn"
+                android:layout_width="20dp"
+                android:layout_height="60dp"
+                android:layout_marginRight="50dp"
+                android:layout_weight="1"
+                android:backgroundTint="#30B1BF"
+                app:srcCompat="@drawable/ic_right_arrow" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginVertical="15dp">
+
+
+            <ImageButton
+                android:id="@+id/upBtn"
+                android:layout_width="20dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="50dp"
+                android:layout_weight="1"
+                android:backgroundTint="#30B1BF"
+                app:srcCompat="@drawable/ic_up_arrow" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"/>
+
+
+            <ImageButton
+                android:id="@+id/downBtn"
+                android:layout_width="20dp"
+                android:layout_height="60dp"
+                android:layout_marginRight="50dp"
+                android:layout_weight="1"
+                android:backgroundTint="#30B1BF"
+                app:srcCompat="@drawable/ic_down_arrow" />
+
+        </LinearLayout>
+
+
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
