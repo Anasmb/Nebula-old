@@ -89,11 +89,11 @@ public class HomeFragment extends Fragment {
             final int position = viewHolder.getAdapterPosition();
             switch (direction){
                 case ItemTouchHelper.LEFT:
-                     String deleted = list.get(position).getPalleteName();
+                     String deletedName = list.get(position).getPalleteName();
                      deletedPallete = list.get(position);
                     list.remove(position);
                     adapter.notifyItemRemoved(position);
-                    Snackbar.make(palleteList, deleted, Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {//LET THE USER UNDO DELETION IF HE DELETED THE PALLETE
+                    Snackbar.make(palleteList, deletedName, Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {//LET THE USER UNDO DELETION IF HE DELETED THE PALLETE
                         @Override
                         public void onClick(View view) {
                             list.add(position,deletedPallete);
