@@ -15,12 +15,14 @@ import androidx.appcompat.widget.ContentFrameLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.panels.Adapter.PalleteAdapter;
 import com.example.panels.Model.Pallete;
 import com.example.panels.SharedPref.SharedPref;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -37,6 +39,7 @@ public class HomeFragment extends Fragment {
     RecyclerView palleteList;
     PalleteAdapter adapter;
     ArrayList<Pallete> list=new ArrayList<>();
+    Pallete deletedPallete = null;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -68,7 +71,40 @@ public class HomeFragment extends Fragment {
             }
         });
         palleteList.setAdapter(adapter);
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(palleteList);
+
     }
+
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0 , ItemTouchHelper.LEFT) { //WHEN THE USER SWIPE THE PALLETE THIS IS CALLED
+        @Override
+        public boolean onMove(@NonNull @org.jetbrains.annotations.NotNull RecyclerView recyclerView, @NonNull @org.jetbrains.annotations.NotNull RecyclerView.ViewHolder viewHolder, @NonNull @org.jetbrains.annotations.NotNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull @org.jetbrains.annotations.NotNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+            final int position = viewHolder.getAdapterPosition();
+            switch (direction){
+                case ItemTouchHelper.LEFT:
+                     String deleted = list.get(position).getPalleteName();
+                     deletedPallete = list.get(position);
+                    list.remove(position);
+                    adapter.notifyItemRemoved(position);
+                    Snackbar.make(palleteList, deleted, Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {//LET THE USER UNDO DELETION IF HE DELETED THE PALLETE
+                        @Override
+                        public void onClick(View view) {
+                            list.add(position,deletedPallete);
+                            adapter.notifyItemInserted(position);
+                        }
+                    }).show();
+                    break;
+            }
+
+        }
+    };
 
 
     @Override

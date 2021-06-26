@@ -139,7 +139,8 @@ public class MainActivity extends AppCompatActivity implements PalleteAdapter.On
 
     private void loadWifi(){
         if(PrefConfig.loadIP(this).equals("")){
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_empty, new StartupFragment()).commit();
+           // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_empty, new StartupFragment()).commit(); TODO UNCOMMENT LATER
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_empty, new HomeFragment()).commit(); //TODO DELETE LATER
         }else {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_empty, new HomeFragment()).commit();
             Thread1 = new Thread(new Thread1());
