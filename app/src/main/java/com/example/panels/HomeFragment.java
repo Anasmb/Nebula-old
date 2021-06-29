@@ -72,8 +72,8 @@ public class HomeFragment extends Fragment {
         });
         palleteList.setAdapter(adapter);
 
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
-        itemTouchHelper.attachToRecyclerView(palleteList);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback); //FOR SWIPE DELETE
+        itemTouchHelper.attachToRecyclerView(palleteList); //FOR SWIPE DELETE
 
     }
 
@@ -88,6 +88,7 @@ public class HomeFragment extends Fragment {
 
             final int position = viewHolder.getAdapterPosition();
             switch (direction){
+                
                 case ItemTouchHelper.LEFT:
                      String deletedName = list.get(position).getPalleteName();
                      deletedPallete = list.get(position);

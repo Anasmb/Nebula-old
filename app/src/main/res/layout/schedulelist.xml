@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/colorBackground"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
@@ -15,9 +9,7 @@
         android:layout_marginEnd="1dp"
         android:orientation="vertical"
         android:padding="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:background="@color/colorBackground">
 
 
         <LinearLayout
@@ -27,7 +19,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
+                android:layout_height="40dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -42,7 +34,7 @@
                     android:textSize="18dp" />
 
                 <TextView
-                    android:id="@+id/dayPartTxt"
+                    android:id="@+id/meridiemTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -76,10 +68,9 @@
                     android:id="@+id/dayTxt1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginRight="3dp"
                     android:fontFamily="@font/roboto"
                     android:textStyle="bold"
-                    android:text="Fri"
                     android:textColor="#80FFFFFF"
                     android:textSize="10dp"/>
 
@@ -87,9 +78,49 @@
                     android:id="@+id/dayTxt2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="3dp"
                     android:fontFamily="@font/roboto"
                     android:textStyle="bold"
-                    android:text="Sat"
+                    android:textColor="#80FFFFFF"
+                    android:textSize="10dp"/>
+
+                <TextView
+                    android:id="@+id/dayTxt3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="3dp"
+                    android:fontFamily="@font/roboto"
+                    android:textStyle="bold"
+                    android:textColor="#80FFFFFF"
+                    android:textSize="10dp"/>
+
+                <TextView
+                    android:id="@+id/dayTxt4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="3dp"
+                    android:fontFamily="@font/roboto"
+                    android:textStyle="bold"
+                    android:textColor="#80FFFFFF"
+                    android:textSize="10dp"/>
+
+                <TextView
+                    android:id="@+id/dayTxt5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="3dp"
+                    android:fontFamily="@font/roboto"
+                    android:textStyle="bold"
+                    android:textColor="#80FFFFFF"
+                    android:textSize="10dp"/>
+
+                <TextView
+                    android:id="@+id/dayTxt6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="3dp"
+                    android:fontFamily="@font/roboto"
+                    android:textStyle="bold"
                     android:textColor="#80FFFFFF"
                     android:textSize="10dp"/>
 
@@ -100,5 +131,3 @@
 
 
     </LinearLayout>
-
-</LinearLayout>

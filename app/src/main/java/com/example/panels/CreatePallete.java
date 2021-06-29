@@ -2,6 +2,8 @@ package com.example.panels;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -34,7 +36,7 @@ import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class CreatePallete extends AppCompatActivity {
+public class CreatePallete extends FragmentActivity {
 
     private EditText palleteEditText;
     private Button addBtn;
