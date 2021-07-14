@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.panels.Model.Pallete;
+import com.example.panels.Panel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -43,6 +44,20 @@ public class SharedPref
             Pallete = new ArrayList<>();
         }
         return Pallete;
+    }
+
+    public static void DeletePallete(Context context , int position){
+
+        ArrayList<Pallete> savedPallete = getPalleteList(context);
+        savedPallete.remove(position);
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences("PalleteList", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(savedPallete);
+        editor.putString("PalleteList", json);
+        editor.apply();
+
     }
 
 

@@ -94,13 +94,30 @@ public class HomeFragment extends Fragment {
                      deletedPallete = list.get(position);
                     list.remove(position);
                     adapter.notifyItemRemoved(position);
-                    Snackbar.make(palleteList, deletedName, Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {//LET THE USER UNDO DELETION IF HE DELETED THE PALLETE
+                    SharedPref.DeletePallete(getContext(), position);
+
+                    //Snackbar will affect deletePallete SharedPref, NEED A FIX IF ENABLED
+                  /*  Snackbar.make(palleteList, deletedName, Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {//LET THE USER UNDO DELETION IF HE DELETED THE PALLETE
                         @Override
                         public void onClick(View view) {
                             list.add(position,deletedPallete);
                             adapter.notifyItemInserted(position);
+
                         }
-                    }).show();
+                    }).addCallback(new Snackbar.Callback(){
+
+                        @Override
+                        public void onShown(Snackbar sb) {
+                            super.onShown(sb);
+                        }
+
+                        @Override
+                        public void onDismissed(Snackbar transientBottomBar, int event) {
+                            Log.d("Debug", "SNACKBAR DISMISSED");
+                            super.onDismissed(transientBottomBar, event);
+                        }
+                    }).show(); */
+
                     break;
             }
 
