@@ -1,19 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="Primary_1">#03DAC5</color>
-    <color name="Primary_2">#03DAC5</color>
-    <color name="Secondary_1">#BB86FC</color>
-    <color name="Off_Color">#3C3C3C</color>
-    <color name="defult_8">#14FFFFFF</color>
-    <color name="defult_12">#1FFFFFFF</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="reply_blue_600">#4A6572</color>
+    <color name="reply_blue_700">#344955</color>
+    <color name="reply_blue_800">#232F34</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="emitColor">#FFBF00</color>
-    <color name="colorBackground">#212121</color>
+    <color name="Off_Color">#3C3C3C</color>
+    <color name="greyish">#9C9C9C</color>
+    <color name="very_light_greyish">#CACACA</color>
+    <color name="button_color">#F9AA33</color>
     <color name="light_blue_600">#FF039BE5</color>
     <color name="light_blue_900">#FF01579B</color>
     <color name="light_blue_A200">#FF40C4FF</color>
     <color name="light_blue_A400">#FF00B0FF</color>
     <color name="black_overlay">#66000000</color>
+
+
+
+    <!--  Theme colors  -->
+    <color name="background_color">@color/white</color>
+    <color name="foreground_color">@color/black</color>
+    <color name="top_app_bar">@color/reply_blue_600</color>
+    <color name="system_bar">@color/reply_blue_700</color>
+    <color name="nav_bar">@color/reply_blue_600</color>
+    <color name="layout_background">@color/very_light_greyish</color>
 
 </resources>

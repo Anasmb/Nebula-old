@@ -25,9 +25,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.panels.Model.Pallete;
 import com.example.panels.SharedPref.SharedPref;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 import com.skydoves.colorpickerview.ColorEnvelope;
 import com.skydoves.colorpickerview.ColorPickerDialog;
 import com.skydoves.colorpickerview.ColorPickerView;
@@ -39,8 +43,8 @@ import java.util.UUID;
 public class CreatePallete extends FragmentActivity {
 
     private EditText palleteEditText;
-    private Button addBtn;
-
+    private MaterialButton addBtn;
+    private MaterialToolbar toolbar;
 
 
     androidx.gridlayout.widget.GridLayout gridLayout;
@@ -54,12 +58,13 @@ public class CreatePallete extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_pallete);
 
-
+        toolbar = findViewById(R.id.createPalletetoolbar);
         gridLayout=findViewById(R.id.gridLayout);
         palleteEditText = findViewById(R.id.namePallete);
         addBtn = findViewById(R.id.addPalleteBtn);
 
-        addBtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#212121")));
+        toolbar.setTitle("Create Pallete");
+        addBtn.setBackgroundColor(getResources().getColor(R.color.greyish));
         addBtn.setClickable(false);
 
         palleteEditText.addTextChangedListener(new TextWatcher() {
@@ -69,13 +74,13 @@ public class CreatePallete extends FragmentActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
             {
-                    if(charSequence.length() > 0 && charSequence.length() < 12){
-                        addBtn.setBackgroundTintList(null);
+                    if((charSequence.length() > 0 && charSequence.length() < 12) && isAnyColorSelected){
+                        addBtn.setBackgroundColor(getResources().getColor(R.color.button_color));
                         addBtn.setClickable(true);
                     }
                     else
                     {
-                        addBtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#212121")));
+                        addBtn.setBackgroundColor(getResources().getColor(R.color.greyish));
                         addBtn.setClickable(false);
                     }
             }
@@ -87,7 +92,6 @@ public class CreatePallete extends FragmentActivity {
             }
         });
 
-
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -95,13 +99,10 @@ public class CreatePallete extends FragmentActivity {
 
 
                 if(isAnyColorSelected)
-                {
                     Save();
-                }
                 else
-                {
                     Toast.makeText(CreatePallete.this,"Please Select Any color",Toast.LENGTH_SHORT).show();
-                }
+
 
 
 
@@ -129,7 +130,7 @@ public class CreatePallete extends FragmentActivity {
             @Override
             public void onClick (View v) {
 
-                 invokeColorListener(((CardView)v), (Integer) v.getTag());
+                 invokeColorListener(((MaterialCardView)v), (Integer) v.getTag());
             }
         };
 
@@ -214,42 +215,37 @@ public class CreatePallete extends FragmentActivity {
 
     private void Reset()
     {
-
         finish();
-
     }
 
+    public  void invokeColorListener(final MaterialCardView cardView, final int selectedBoxPosition) {
 
 
-    public  void invokeColorListener(final CardView cardView, final int selectedBoxPosition)
-    {
+            final Dialog dialog=new Dialog(this);
+            dialog.setContentView(R.layout.custom_dialog);
+            dialog.show();
+            final ColorPickerView colorPickerView=dialog.findViewById(R.id.colorPickerView);
+            MaterialButton btnDone=dialog.findViewById(R.id.btnDone) ;
+            btnDone.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick (View v) {
+
+                    int color = colorPickerView.getColorEnvelope().getColor();
+                    // String hexColor = colorPickerView.getColorEnvelope().getHexCode();
+
+                    PalleteColors[selectedBoxPosition] = color;
+                    cardView.setCardBackgroundColor(color);
+                    isAnyColorSelected=true;
+                    dialog.dismiss();
+                }
+            });
+
+            Window window = dialog.getWindow();
+            window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
 
-        final Dialog dialog=new Dialog(this);
-        dialog.setContentView(R.layout.custom_dialog);
-        dialog.show();
-        final ColorPickerView colorPickerView=dialog.findViewById(R.id.colorPickerView);
-        Button btnDone=dialog.findViewById(R.id.btnDone) ;
-        btnDone.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick (View v) {
 
-
-
-
-                int color = colorPickerView.getColorEnvelope().getColor();
-
-
-                PalleteColors[selectedBoxPosition]=color;
-                cardView.setCardBackgroundColor(color);
-                isAnyColorSelected=true;
-                dialog.dismiss();
-            }
-        });
-
-        Window window = dialog.getWindow();
-        window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
     }
     public void openPrevious(View view){

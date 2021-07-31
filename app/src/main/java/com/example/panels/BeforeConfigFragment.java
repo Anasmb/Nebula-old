@@ -90,7 +90,7 @@ public class BeforeConfigFragment extends Fragment {
         int ipNebula = dhcpInfo.gateway;
         String ipString = String.format("%d.%d.%d.%d", (ipNebula & 0xff), (ipNebula >> 8 & 0xff), (ipNebula >> 16 & 0xff), (ipNebula >> 24 & 0xff));
         if(ipString.equals("192.168.4.1")){
-            nxtbtn.setBackgroundColor(getResources().getColor(R.color.Secondary_1));
+            nxtbtn.setBackgroundColor(getResources().getColor(R.color.purple_200));
             return true;
         }
         nxtbtn.setBackgroundColor(getResources().getColor(R.color.Off_Color));

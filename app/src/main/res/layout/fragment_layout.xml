@@ -7,20 +7,24 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".LayoutFragment"
-    android:background="@color/colorBackground" >
+    android:background="@color/background_color" >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mainRelativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="473dp">
+        android:layout_height="473dp"
+        android:background="@color/layout_background">
 
         <ToggleButton
             android:id="@+id/selectAllToggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/greyish"
             android:checked="true"
-            android:textOff="All"
-            android:textOn="All" />
+            android:textOff="Select All"
+            android:textOn="Select All"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <RelativeLayout
             android:id="@+id/panelsLayout"
@@ -28,58 +32,77 @@
             android:layout_height="606dp"
            android:translationX="-20dp"
           android:translationY="-20dp"
-            android:background="@color/defult_12"
+            android:background="@color/very_light_greyish"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Brightness"
-        android:layout_marginTop="25dp"
-        android:textStyle="bold"
-        android:layout_marginHorizontal="25dp"
-        android:textSize="16dp"
-        android:fontFamily="@font/roboto"/>
 
-    <com.google.android.material.slider.Slider
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       android:layout_marginVertical="20dp">
+
+       <ImageView
+           android:layout_width="34dp"
+           android:layout_height="35dp"
+           android:layout_marginLeft="16dp"
+           android:layout_gravity="center"
+           android:src="@drawable/ic_wb_sunny_black_24dp"
+           app:tint="@color/greyish" />
+
+       <com.google.android.material.slider.Slider
         android:id="@+id/brightnessSlider"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
+        android:layout_marginRight="32dp"
         android:value="50"
         android:valueFrom="0"
         android:valueTo="100"
         app:labelBehavior="gone"
-        app:thumbColor="@color/Secondary_1"
-        app:trackColorActive="@color/Secondary_1"
-        app:trackColorInactive="#61BB86FC"
-        app:trackHeight="4dp" />
+        app:thumbColor="@color/white"
+        app:thumbStrokeColor="#707070"
+        app:thumbStrokeWidth="1dp"
+        app:trackColorActive="@color/button_color"
+        app:trackColorInactive="@color/greyish"
+        app:trackHeight="8dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Temperature"
-        android:layout_marginTop="25dp"
-        android:textStyle="bold"
-        android:layout_marginHorizontal="25dp"
-        android:textSize="16dp"
-        android:fontFamily="@font/roboto"/>
+   </LinearLayout>
 
-    <com.google.android.material.slider.Slider
-        android:id="@+id/kelvinSlider"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        app:trackHeight="4dp"
-        android:value="50"
-        android:valueFrom="0"
-        android:valueTo="100"
-        app:labelBehavior="gone"
-        app:thumbColor="@color/Secondary_1"
-        app:trackColorActive="@color/Secondary_1"
-        app:trackColorInactive="#61BB86FC"/>
+        android:orientation="horizontal"
+        android:layout_marginVertical="20dp">
+
+        <ImageView
+            android:layout_width="34dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="16dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_thermostat_black_24dp"
+            app:tint="@color/greyish"/>
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/kelvinSlider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="32dp"
+            android:value="50"
+            android:valueFrom="0"
+            android:valueTo="100"
+            app:labelBehavior="gone"
+            app:thumbColor="@color/white"
+            app:thumbStrokeColor="#707070"
+            app:thumbStrokeWidth="1dp"
+            app:trackColorActive="@color/button_color"
+            app:trackColorInactive="@color/greyish"
+            app:trackHeight="8dp"/>
+
+    </LinearLayout>
+
+
 
 
 

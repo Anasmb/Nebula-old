@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/colorBackground">
+    android:background="@color/background_color">
 
     <LinearLayout
         android:id="@+id/startup"
@@ -44,7 +44,7 @@
                 android:layout_height="45dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginVertical="15dp"
-                android:backgroundTint="@color/Secondary_1"
+                android:backgroundTint="@color/purple_200"
                 android:fontFamily="@font/roboto_bold"
                 android:tag="newBtn"
                 android:text="New"
@@ -55,7 +55,7 @@
                 android:layout_width="200dp"
                 android:layout_height="45dp"
                 android:layout_gravity="center_horizontal"
-                android:backgroundTint="@color/Secondary_1"
+                android:backgroundTint="@color/purple_200"
                 android:fontFamily="@font/roboto_bold"
                 android:tag="existingBtn"
                 android:text="Existing"

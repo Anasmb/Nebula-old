@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/mainLayout"
     android:orientation="vertical"
-    android:background="@color/colorBackground">
+    android:background="@color/background_color">
 
 
     <ImageButton
@@ -38,7 +38,7 @@
         android:layout_height="500dp"
         android:layout_gravity="center"
         android:layout_marginVertical="10dp"
-        android:background="@color/colorBackground"
+        android:background="@color/background_color"
         android:drawSelectorOnTop="true"
         android:visibility="visible">
 

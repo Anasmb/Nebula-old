@@ -11,15 +11,16 @@
         android:layout_height="300dp"
         android:layout_margin="20dp"
         />
-    <androidx.appcompat.widget.AppCompatButton
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnDone"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_margin="20dp"
         android:text="Done"
         android:textSize="20dp"
-        android:backgroundTint="#aa7ce2"
-        android:background="@drawable/round_btn"
+        android:backgroundTint="@color/greyish"
+        android:background="@color/greyish"
         />
 
 </LinearLayout>

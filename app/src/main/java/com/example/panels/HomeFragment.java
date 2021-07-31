@@ -2,18 +2,22 @@ package com.example.panels;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.ContentFrameLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,33 +26,40 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.panels.Adapter.PalleteAdapter;
 import com.example.panels.Model.Pallete;
 import com.example.panels.SharedPref.SharedPref;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
 
+
+    private static final String LOG_TAG =  "HomeFragment";
     private FragmentHomeListener listener;
     private ImageButton emitButton; // connected with isOn
+    private DividerItemDecoration itemDecoration;
+    private FloatingActionButton floatingActionButton;
     private boolean isOn = true;
 
-    public interface FragmentHomeListener{ //USE THIS TO SEND DATA TO ACTIVITY
-        void onInputHomeSent(CharSequence input);
+    public interface FragmentHomeListener{ //USE THIS TO SEND DATA TO MainActivity
+        void onInputHomeSent(CharSequence input, Pallete pallete);
     }
 
     RecyclerView palleteList;
     PalleteAdapter adapter;
     ArrayList<Pallete> list=new ArrayList<>();
     Pallete deletedPallete = null;
+
+
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        emitButton = view.findViewById(R.id.emitButton);
 
-
-
+      //  emitButton = view.findViewById(R.id.emitButton);
 
         return view;
     }
@@ -57,20 +68,31 @@ public class HomeFragment extends Fragment {
     public void onViewCreated ( View view ,  Bundle savedInstanceState) {
         super.onViewCreated(view , savedInstanceState);
 
+        itemDecoration = new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL);
+
         list.clear();
         list.addAll(SharedPref.getPalleteList(getActivity()));
 
-
+        floatingActionButton = view.findViewById(R.id.floatingAddPalleteButton);
         palleteList=view.findViewById(R.id.recyclerView);
         palleteList.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter=new PalleteAdapter(list , getActivity() , new PalleteAdapter.OnNoteListener()
         {
             @Override
-            public void OnNoteClick (int position) {
-
+            public void OnNoteClick (int position) { //WHEN PALLETE LIST CLICKED THIS IS CALLED
+                listener.onInputHomeSent("Pallete" , list.get(position)); //SEND TO MainActivity
             }
         });
         palleteList.setAdapter(adapter);
+        palleteList.addItemDecoration(itemDecoration);
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(),CreatePallete.class);
+                startActivity(intent);
+            }
+        });
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback); //FOR SWIPE DELETE
         itemTouchHelper.attachToRecyclerView(palleteList); //FOR SWIPE DELETE
@@ -164,7 +186,7 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
-    public void onDetach() {// THIS IS CALLED WHEN WE REMOVE THIS FRAGMENT FROM THE ACITVITY
+    public void onDetach() {// THIS IS CALLED WHEN WE REMOVE THIS FRAGMENT FROM THE ACTIVITY
         super.onDetach();
         listener = null;
     }
@@ -172,7 +194,7 @@ public class HomeFragment extends Fragment {
     public void setEmitButton(View view) {
         isOn = !isOn;
                 if (isOn) {
-                    emitButton.setColorFilter(ContextCompat.getColor(getActivity().getApplicationContext(), R.color.emitColor));
+                    emitButton.setColorFilter(ContextCompat.getColor(getActivity().getApplicationContext(), R.color.button_color));
                     //new Thread(new MainActivity.Thread3("all on")).start();
                 } else {
                     emitButton.setColorFilter(ContextCompat.getColor(getActivity().getApplicationContext(), R.color.defult_8));

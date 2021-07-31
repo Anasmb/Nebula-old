@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView android:layout_width="90dp"
+<com.google.android.material.card.MaterialCardView
+    android:layout_width="90dp"
     android:layout_height="80dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="5dp"
-    android:layout_margin="5dp"
+    app:cardCornerRadius="0dp"
+    app:strokeColor="@color/black"
+    app:strokeWidth="2dp"
+    android:backgroundTint="@color/greyish"
     xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <TextView
@@ -13,7 +16,7 @@
         android:gravity="center"
         android:textStyle="bold"
         android:textColor="#FFFFFF"
-        android:textSize="30dp"
+        android:textSize="35dp"
         />
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

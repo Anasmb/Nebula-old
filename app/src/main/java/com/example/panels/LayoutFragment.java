@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,7 +15,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ToggleButton;
 
+import com.example.panels.Model.Pallete;
 import com.google.android.material.slider.Slider;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.net.Socket;
 import java.util.ArrayList;
@@ -24,11 +28,14 @@ public class LayoutFragment extends Fragment{
     View view;
     RelativeLayout relativeLayout;
 
+
     private Thread Thread1 = null;
     private Socket socket;
     private String IPADDRESS ;
     private final int port  = 3636;
 
+    private static final String LOG_TAG =  "LayoutFragment";
+    private FragmentLayoutListener listener;
     private ArrayList<String> panelsLayout; //list messages from server
     private ArrayList<Panel> panels;
     private ImageView currentSelectedPanel;
@@ -41,6 +48,15 @@ public class LayoutFragment extends Fragment{
     float xDown = 0;
     float yDown = 0 ;
 
+    public interface FragmentLayoutListener{ //USE THIS TO SEND DATA TO MainActivity
+        void onInputLayoutSent(CharSequence input);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+    }
 
     @Nullable
     @Override
@@ -56,25 +72,26 @@ public class LayoutFragment extends Fragment{
         selectButton.setOnClickListener(selectAllPanels);
         
         //right part
-        panelsLayout.add("100 201 101");
-        panelsLayout.add("101 nul 102");
-        panelsLayout.add("102 103 nul");
-        panelsLayout.add("103 nul 104");
-        panelsLayout.add("104 105 nul");
-        panelsLayout.add("105 nul nul");
-        panelsLayout.add("106 nul nul");
+//        panelsLayout.add("100 201 101");
+//        panelsLayout.add("101 nul 102");
+//        panelsLayout.add("102 103 nul");
+//        panelsLayout.add("103 nul 104");
+//        panelsLayout.add("104 105 nul");
+//        panelsLayout.add("105 nul nul");
+//        panelsLayout.add("106 nul nul");
 
         //left part
-        panelsLayout.add("201 202 nul");
-        panelsLayout.add("202 nul 203");
-        panelsLayout.add("203 204 nul");
-        panelsLayout.add("204 nul 206");
-        panelsLayout.add("206 207 nul");
-        panelsLayout.add("207 nul nul");
+//        panelsLayout.add("201 202 nul");
+//        panelsLayout.add("202 nul 203");
+//        panelsLayout.add("203 204 nul");
+//        panelsLayout.add("204 nul 206");
+//        panelsLayout.add("206 207 nul");
+//        panelsLayout.add("207 nul nul");
 
 
 
-        messageAnalyzer();
+
+      //  messageAnalyzer();
 
         // IPESP32 = PrefConfig.loadIP(this);
         //IPADDRESS = "192.168.100.88"; // IP ADDRESS
@@ -84,6 +101,18 @@ public class LayoutFragment extends Fragment{
 
 
         return  view;
+    }
+
+    public void onAttach(@NonNull Context context) { //THIS IS USED WHEN IF THE ACTIVITY ATTACH THE INTERFACE
+        super.onAttach(context);
+        if(context instanceof LayoutFragment.FragmentLayoutListener){
+            listener = (LayoutFragment.FragmentLayoutListener) context;
+            listener.onInputLayoutSent("refresh");
+            Log.d(LOG_TAG,"Sent to MainActivity 'refresh' ");
+        }
+        else {
+            throw new RuntimeException(context.toString() + " Must implement FragmentLayoutListener");
+        }
     }
 
     View.OnTouchListener relativeListener = new View.OnTouchListener() {
@@ -135,18 +164,19 @@ public class LayoutFragment extends Fragment{
     }
 
     public void addLayout(String message){
-      // panelsLayout[panelsLayoutIndex] = message.substring(7 , message.length()); //This remove the layout word
-      // panelsLayoutIndex++;
+       panelsLayout.add(message.substring(7 , message.length()));  //This remove the layout word
+
     }
 
     public void refreshLayout(View view){
         //new Thread(new EditLayout.Thread3("refresh")).start();
     }
 
-    private void dataServerChecker(String message){
-
+    public void onMainReceive(String message){
         if(message.startsWith("layout")){
-           addLayout(message);
+           Log.d(LOG_TAG, message);
+
+            //addLayout(message);
         }
 
     }

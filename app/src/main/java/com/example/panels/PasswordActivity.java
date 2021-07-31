@@ -95,7 +95,7 @@ public class PasswordActivity extends FragmentActivity {
                     Toast.makeText(getApplicationContext(), "Unable to connect to the network",Toast.LENGTH_SHORT).show();
                     connectBtn.setClickable(true);
                     progressBar.setVisibility(View.INVISIBLE);
-                    connectBtn.setBackgroundColor(getResources().getColor(R.color.Secondary_1));
+                    connectBtn.setBackgroundColor(getResources().getColor(R.color.purple_200));
                     pswd.setEnabled(true);
                 }
             }
@@ -118,12 +118,12 @@ public class PasswordActivity extends FragmentActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 if(editable.length() > 7){
-                    connectBtn.setBackgroundColor(getResources().getColor(R.color.Secondary_1));
+                    connectBtn.setBackgroundColor(getResources().getColor(R.color.purple_200));
                     connectBtn.setClickable(true);
                     ssidPswd = editable.toString();
                 }
                 else if(editable.length() < 8){
-                    connectBtn.setBackgroundColor(getResources().getColor(R.color.defult_8));
+                    connectBtn.setBackgroundColor(getResources().getColor(R.color.black));
                     connectBtn.setClickable(false);
                 }
             }

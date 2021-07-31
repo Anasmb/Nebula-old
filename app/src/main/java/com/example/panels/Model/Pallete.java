@@ -6,6 +6,13 @@ public class Pallete
     private String PalleteUID;
     private String PalleteName;
 
+    private int Color1;
+    private int Color2;
+    private int Color3;
+    private int Color4;
+    private int Color5;
+    private int Color6;
+
     public String getPalleteUID() {
         return PalleteUID;
     }
@@ -54,13 +61,6 @@ public class Pallete
         Color4 = color4;
     }
 
-    private int Color1;
-    private int Color2;
-    private int Color3;
-    private int Color4;
-    private int Color5;
-    private int Color6;
-
     public int getColor5 () {
         return Color5;
     }
@@ -68,8 +68,6 @@ public class Pallete
     public void setColor5 (int color5) {
         Color5 = color5;
     }
-
-
 
     public int getColor6 () {
         return Color6;

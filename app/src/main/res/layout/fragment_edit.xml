@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@color/colorBackground">
+    android:background="@color/background_color">
 
     <TextView
         android:layout_width="wrap_content"
@@ -42,8 +42,8 @@
             android:valueFrom="0"
             android:valueTo="100"
             app:labelBehavior="gone"
-            app:thumbColor="@color/Secondary_1"
-           app:trackColorActive="@color/Secondary_1"
+            app:thumbColor="@color/purple_200"
+           app:trackColorActive="@color/purple_200"
             app:trackColorInactive="#61BB86FC"/>
 
 
@@ -84,8 +84,8 @@
             android:valueFrom="0"
             android:valueTo="100"
             app:labelBehavior="gone"
-            app:thumbColor="@color/Secondary_1"
-            app:trackColorActive="@color/Secondary_1"
+            app:thumbColor="@color/purple_200"
+            app:trackColorActive="@color/purple_200"
             app:trackColorInactive="#61BB86FC"/>
 
     </LinearLayout>

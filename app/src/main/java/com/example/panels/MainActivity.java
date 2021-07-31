@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -27,9 +29,10 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements PalleteAdapter.OnNoteListener, HomeFragment.FragmentHomeListener, StartupFragment.FragmentStartupListener {
+public class MainActivity extends AppCompatActivity implements PalleteAdapter.OnNoteListener, HomeFragment.FragmentHomeListener, StartupFragment.FragmentStartupListener, LayoutFragment.FragmentLayoutListener {
 
     HomeFragment homeFragment;
+    LayoutFragment layoutFragment;
 
     private String IPESP32 ;
     private final int port  = 3636;
@@ -37,6 +40,9 @@ public class MainActivity extends AppCompatActivity implements PalleteAdapter.On
     private Socket socket;
     private PrintWriter output;
     private BufferedReader input;
+    private String debugTag = "MainActivity";
+    private CountDownTimer timer;
+    private boolean are_Connected = false;
 
     RecyclerView palleteList;
     PalleteAdapter adapter;
@@ -45,13 +51,12 @@ public class MainActivity extends AppCompatActivity implements PalleteAdapter.On
     @Override
     protected void onStart() {
 
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-
         super.onStart();
 
         list.clear();
         list.addAll(SharedPref.getPalleteList(this));
         adapter.notifyDataSetChanged();
+
     }
 
 
@@ -69,24 +74,25 @@ public class MainActivity extends AppCompatActivity implements PalleteAdapter.On
         setContentView(R.layout.activity_main);
 
         homeFragment = new HomeFragment();
+        layoutFragment = new LayoutFragment();
 
         IPESP32 = PrefConfig.loadIP(this);
-
+        loadWifi();
 
         list.clear();
         list.addAll(SharedPref.getPalleteList(this));
-
 
         palleteList=findViewById(R.id.recyclerView);
         palleteList.setLayoutManager(new LinearLayoutManager(this));
         adapter=new PalleteAdapter(list,this ,this);
         palleteList.setAdapter(adapter);
 
-
         BottomNavigationView bottomNav = findViewById(R.id.bottomNavigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-        loadWifi();
+        Thread1 = new Thread(new Thread1());
+        Thread1.start();
+
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -138,13 +144,13 @@ public class MainActivity extends AppCompatActivity implements PalleteAdapter.On
     }
 
     private void loadWifi(){
-        if(PrefConfig.loadIP(this).equals("")){
-           // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_empty, new StartupFragment()).commit(); TODO UNCOMMENT LATER
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_empty, new HomeFragment()).commit(); //TODO DELETE LATER
+        if(PrefConfig.loadIP(this).equals("")){ //If there is no saved ESP32
+            Log.d(debugTag , "Cannot find ESP32 to load!");
+           getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_empty, new StartupFragment()).commit();
         }else {
+            Log.d(debugTag , "ESP32 IP address found");
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_empty, new HomeFragment()).commit();
-            Thread1 = new Thread(new Thread1());
-            Thread1.start();
+
         }
     }
 
@@ -155,8 +161,18 @@ public class MainActivity extends AppCompatActivity implements PalleteAdapter.On
     }
 
     @Override
-    public void onInputHomeSent(CharSequence input) { //Receive data from the Home fragment
+    public void onInputLayoutSent(CharSequence input) { //Receive data from the Layout fragment
+        Log.d(debugTag,"Received from LayoutFragment " + input);
+          if(input.equals("refresh")){
+               // new Thread(new Thread3("refresh")).start();
+            }
+    }
 
+    @Override
+    public void onInputHomeSent(CharSequence input, Pallete pallete) { //Receive data from the Home fragment
+            if(input.equals("Pallete")){
+                PalleteClicked(pallete);
+            }
     }
 
     @Override
@@ -168,9 +184,44 @@ public class MainActivity extends AppCompatActivity implements PalleteAdapter.On
         }
     }
 
+    private void PalleteClicked(Pallete pallete) {
+        Log.d(debugTag, "Inside PalleteClicked Function, Pallete Clicked Name = " + pallete.getPalleteName());
+
+
+        String color1 = String.format("%06X" , (0xFFFFFF & pallete.getColor1()));
+        String color2= String.format("%06X" , (0xFFFFFF & pallete.getColor2()));
+        String color3 = String.format("%06X" , (0xFFFFFF & pallete.getColor3()));
+        String color4 = String.format("%06X" , (0xFFFFFF & pallete.getColor4()));
+        String color5 = String.format("%06X" , (0xFFFFFF & pallete.getColor5()));
+        String color6 = String.format("%06X" , (0xFFFFFF & pallete.getColor6()));
+
+
+        try {
+                if(!are_Connected) {
+                    Log.d(debugTag, "Socket is not connected");
+              //      Thread1 = new Thread(new Thread1());
+             //       Thread1.start();
+                }
+            sleep(500);
+
+          //  if (output != null)
+             new Thread(new Thread3("pt1 " + color1 + " " + color2 + " " + color3 + " " + color4)).start();
+            sleep(500);
+            new Thread(new Thread3("pt2 " + color5 + " " + color6)).start();
+            sleep(500);
+            new Thread(new Thread3("begin")).start();
+        }
+        catch (Exception exception){
+            exception.printStackTrace();
+        }
+
+
+    }
+
+
     @Override
     public void OnNoteClick(int position) {
-
+/*
         int red = Color.red(list.get(position).getColor1());
         int green = Color.green(list.get(position).getColor1());
         int blue = Color.blue(list.get(position).getColor1());
@@ -210,7 +261,14 @@ public class MainActivity extends AppCompatActivity implements PalleteAdapter.On
 
         new Thread(new Thread3("begin")).start();
         sleep(150);
+*/
 
+    }
+
+    private void receiveAnalyzer(String message){
+        if(message.startsWith("layout")){
+            layoutFragment.onMainReceive(message);
+        }
 
     }
 
@@ -234,8 +292,10 @@ public class MainActivity extends AppCompatActivity implements PalleteAdapter.On
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if(socket.isConnected())
-                     Toast.makeText(getApplicationContext(),"Connected" , Toast.LENGTH_SHORT).show();
+                        if(socket.isConnected()) {
+                            Toast.makeText(getApplicationContext(), "Connected", Toast.LENGTH_SHORT).show();
+                            are_Connected = true;
+                        }
                     }
                 });
                 new Thread(new Thread2()).start();
@@ -251,6 +311,7 @@ public class MainActivity extends AppCompatActivity implements PalleteAdapter.On
                 try {
                     final String message = input.readLine();
                     if (message != null) {
+                        receiveAnalyzer(message);
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -275,6 +336,7 @@ public class MainActivity extends AppCompatActivity implements PalleteAdapter.On
         }
         @Override
         public void run() {
+            Log.d("MainActivity" , "Data sent: " + message);
             output.write(message);
             output.flush();
             runOnUiThread(new Runnable() {

@@ -1,97 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground"
-    tools:context=".CreatePallete">
+    android:background="@color/background_color"
+    tools:context=".CreatePallete"
+    android:orientation="vertical">
 
-
-    <Button
-        android:id="@+id/addPalleteBtn"
-        android:layout_width="200dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="100dp"
-        android:background="@drawable/round_btn"
-        android:fontFamily="@font/roboto_bold"
-        android:text="Finish"
-        android:textColor="@color/white"
-
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="@+id/gridLayout"
-        app:layout_constraintStart_toStartOf="@+id/gridLayout"
-        app:layout_constraintTop_toBottomOf="@+id/gridLayout" />
-
-
-    <ImageView
-        android:id="@+id/pallete_top_nav"
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/createPalletetoolbar"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:background="@color/defult_8"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/createPalleteTxt"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/roboto_bold"
-        android:text="Create Pallete"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@color/reply_blue_600"
+        android:minHeight="?attr/actionBarSize"
+        app:title="Create Pallete"
+        app:titleTextColor="@color/white" />
 
+<!--    <ImageButton-->
+<!--        android:id="@+id/palleteBackBtn"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginVertical="16dp"-->
+<!--        android:layout_marginHorizontal="16dp"-->
+<!--        android:background="@color/foreground_color"-->
+<!--        android:onClick="openPrevious"-->
+<!--        android:visibility="visible"-->
+<!--        app:srcCompat="@drawable/ic_baseline_arrow_back_24" />-->
 
-    <androidx.gridlayout.widget.GridLayout
-        android:id="@+id/gridLayout"
-        android:layout_marginTop="100dp"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:columnCount="3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/namePallete"
-        app:rowCount="2">
-
-
-    </androidx.gridlayout.widget.GridLayout>
-
-
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal">
 
     <EditText
         android:id="@+id/namePallete"
-        android:layout_width="338dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="40dp"
-        android:backgroundTint="#238BDB"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginVertical="32dp"
+        android:layout_marginHorizontal="38dp"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="@color/greyish"
         android:ems="10"
         android:fontFamily="@font/roboto_bold"
         android:hint="Pallete name"
         android:inputType="textPersonName"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#5BFFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pallete_top_nav" />
+        android:textColor="@color/foreground_color"
+        android:textColorHint="@color/greyish" />
 
-    <ImageButton
-        android:id="@+id/palleteBackBtn"
+    <androidx.gridlayout.widget.GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginVertical="32dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="#00494848"
-        android:onClick="openPrevious"
-        android:visibility="visible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
+        app:columnCount="3"
+        app:rowCount="2">
+    </androidx.gridlayout.widget.GridLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/addPalleteBtn"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="100dp"
+            android:layout_marginVertical="32dp"
+            app:cornerRadius="3dp"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Finish"
+            android:textColor="@color/white"
+            android:visibility="visible" />
+
+    </LinearLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</LinearLayout>

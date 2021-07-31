@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mainActivityLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground"
+    android:background="@color/background_color"
     tools:context=".MainActivity">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -34,9 +35,9 @@
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/defult_8"
-        app:itemIconTint="@color/Secondary_1"
-        app:itemTextColor="@color/Secondary_1"
+        android:background="@color/reply_blue_600"
+        app:itemIconTint="@color/button_color"
+        app:itemTextColor="@color/button_color"
         app:menu="@menu/bottom_navigation"
        android:layout_alignParentBottom="true"/>
 

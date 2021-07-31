@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,8 @@ import java.util.List;
 
 
 public class PalleteAdapter extends RecyclerView.Adapter<PalleteAdapter.ViewHolder> {
+
+    private static final String LOG_TAG =  "PalleteAdapter";
     private ArrayList<Pallete> listData;
     private OnNoteListener mOnNoteListener;
     Context context;
@@ -41,9 +45,9 @@ public class PalleteAdapter extends RecyclerView.Adapter<PalleteAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int i) {
 
-        Pallete obje=listData.get(i);
+        Pallete obje = listData.get(i);
 
-        int num=getNumColors(obje);
+        int num = getNumColors(obje);
 
         MaterialCardView[] cardViews=new MaterialCardView[]{holder.cardColor1,holder.cardColor2,holder.cardColor3,holder.cardColor4,holder.cardColor5,holder.cardColor6};
         LinearLayout [] linearLayouts=new LinearLayout[]{holder.layout1,holder.layout2,holder.layout3};
@@ -110,7 +114,7 @@ public class PalleteAdapter extends RecyclerView.Adapter<PalleteAdapter.ViewHold
             cardViews[3].setCardForegroundColor(ColorStateList.valueOf(colors[2]));
 
             cardViews[4].setVisibility(View.VISIBLE);
-            cardViews[4].setBackgroundColor(colors[3]);
+            cardViews[4].setCardForegroundColor(ColorStateList.valueOf(colors[3]));
 
 
             linearLayouts[0].setVisibility(View.VISIBLE);
@@ -173,7 +177,7 @@ public class PalleteAdapter extends RecyclerView.Adapter<PalleteAdapter.ViewHold
 
     }
 
-    private int getNumColors (Pallete obje)
+    private int getNumColors (Pallete obje) //RETURN HOW MANY COLORS IN THE PALLETE
     {
         if(obje.getColor1()==0)
             return 0;
@@ -234,6 +238,7 @@ public class PalleteAdapter extends RecyclerView.Adapter<PalleteAdapter.ViewHold
 
         @Override
         public void onClick(View view) {
+            Log.d(LOG_TAG, "Item Clicked");
             onNoteListener.OnNoteClick(getAdapterPosition());
         }
     }
