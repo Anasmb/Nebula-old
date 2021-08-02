@@ -28,12 +28,6 @@ public class LayoutFragment extends Fragment{
     View view;
     RelativeLayout relativeLayout;
 
-
-    private Thread Thread1 = null;
-    private Socket socket;
-    private String IPADDRESS ;
-    private final int port  = 3636;
-
     private static final String LOG_TAG =  "LayoutFragment";
     private FragmentLayoutListener listener;
     private ArrayList<String> panelsLayout; //list messages from server
@@ -72,33 +66,23 @@ public class LayoutFragment extends Fragment{
         selectButton.setOnClickListener(selectAllPanels);
         
         //right part
-//        panelsLayout.add("100 201 101");
-//        panelsLayout.add("101 nul 102");
-//        panelsLayout.add("102 103 nul");
-//        panelsLayout.add("103 nul 104");
-//        panelsLayout.add("104 105 nul");
-//        panelsLayout.add("105 nul nul");
-//        panelsLayout.add("106 nul nul");
+        panelsLayout.add("100 201 101");
+        panelsLayout.add("101 nul 102");
+        panelsLayout.add("102 103 nul");
+        panelsLayout.add("103 nul 104");
+        panelsLayout.add("104 105 nul");
+        panelsLayout.add("105 nul nul");
+        panelsLayout.add("106 nul nul");
 
         //left part
-//        panelsLayout.add("201 202 nul");
-//        panelsLayout.add("202 nul 203");
-//        panelsLayout.add("203 204 nul");
-//        panelsLayout.add("204 nul 206");
-//        panelsLayout.add("206 207 nul");
-//        panelsLayout.add("207 nul nul");
+        panelsLayout.add("201 202 nul");
+        panelsLayout.add("202 nul 203");
+        panelsLayout.add("203 204 nul");
+        panelsLayout.add("204 nul 206");
+        panelsLayout.add("206 207 nul");
+        panelsLayout.add("207 nul nul");
 
-
-
-
-      //  messageAnalyzer();
-
-        // IPESP32 = PrefConfig.loadIP(this);
-        //IPADDRESS = "192.168.100.88"; // IP ADDRESS
-        //Thread1 = new Thread(new EditLayout.Thread1());
-        // Thread1.start();
-
-
+        messageAnalyzer();
 
         return  view;
     }

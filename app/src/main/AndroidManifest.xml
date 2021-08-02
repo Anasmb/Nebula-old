@@ -13,6 +13,7 @@
         <activity android:name=".existingActivity" />
         <activity android:name=".LayoutFragment" />
         <activity android:name=".CreatePallete" />
+        <activity android:name=".SetScheduleFragment"/>
         <activity android:name=".PasswordActivity" />
         <activity android:name=".WifiConfig" />
         <activity android:name=".BeforeConfigFragment" />

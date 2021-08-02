@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="1dp"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:background="@color/background_color">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginStart="1dp"
+    android:layout_marginTop="1dp"
+    android:layout_marginEnd="1dp"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:background="@color/background_color">
 
 
         <LinearLayout
@@ -30,7 +30,7 @@
                     android:fontFamily="@font/roboto"
                     android:textStyle="bold"
                     android:text="12:00"
-                    android:textColor="#ffffff"
+                    android:textColor="@color/foreground_color"
                     android:textSize="18dp" />
 
                 <TextView
@@ -42,7 +42,7 @@
                     android:fontFamily="@font/roboto"
                     android:textStyle="bold"
                     android:text="am"
-                    android:textColor="#ffffff"
+                    android:textColor="@color/foreground_color"
                     android:textSize="14dp" />
 
 
@@ -55,7 +55,9 @@
                     android:id="@+id/swichBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical"
+                    app:thumbTint="@color/thumb_color_off"
+                    app:trackTint="@color/track_color_off" />
 
             </LinearLayout>
 
@@ -71,7 +73,7 @@
                     android:layout_marginRight="3dp"
                     android:fontFamily="@font/roboto"
                     android:textStyle="bold"
-                    android:textColor="#80FFFFFF"
+                    android:textColor="@color/light_greyish"
                     android:textSize="10dp"/>
 
                 <TextView
@@ -81,7 +83,7 @@
                     android:layout_marginRight="3dp"
                     android:fontFamily="@font/roboto"
                     android:textStyle="bold"
-                    android:textColor="#80FFFFFF"
+                    android:textColor="@color/light_greyish"
                     android:textSize="10dp"/>
 
                 <TextView
@@ -91,7 +93,7 @@
                     android:layout_marginRight="3dp"
                     android:fontFamily="@font/roboto"
                     android:textStyle="bold"
-                    android:textColor="#80FFFFFF"
+                    android:textColor="@color/light_greyish"
                     android:textSize="10dp"/>
 
                 <TextView
@@ -101,7 +103,7 @@
                     android:layout_marginRight="3dp"
                     android:fontFamily="@font/roboto"
                     android:textStyle="bold"
-                    android:textColor="#80FFFFFF"
+                    android:textColor="@color/light_greyish"
                     android:textSize="10dp"/>
 
                 <TextView
@@ -111,7 +113,7 @@
                     android:layout_marginRight="3dp"
                     android:fontFamily="@font/roboto"
                     android:textStyle="bold"
-                    android:textColor="#80FFFFFF"
+                    android:textColor="@color/light_greyish"
                     android:textSize="10dp"/>
 
                 <TextView
@@ -121,7 +123,7 @@
                     android:layout_marginRight="3dp"
                     android:fontFamily="@font/roboto"
                     android:textStyle="bold"
-                    android:textColor="#80FFFFFF"
+                    android:textColor="@color/light_greyish"
                     android:textSize="10dp"/>
 
 

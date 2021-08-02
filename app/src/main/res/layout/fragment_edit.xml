@@ -6,45 +6,36 @@
     android:orientation="vertical"
     android:background="@color/background_color">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center_horizontal"
-        android:text="Customize"
-        android:textSize="24dp"
-        android:textStyle="bold"/>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:layout_marginVertical="24dp">
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Clock Speed"
-            android:layout_marginTop="30dp"
-            android:textStyle="bold"
-            android:layout_marginHorizontal="25dp"
-            android:textSize="18dp"
-            android:fontFamily="@font/roboto"
-            android:textColor="#CCFFFFFF"/>
+        <ImageView
+            android:layout_width="34dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="16dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_speed_black_24dp"
+            app:tint="@color/greyish" />
 
         <com.google.android.material.slider.Slider
-            android:id="@+id/clockSlider"
+            android:id="@+id/speedSlider"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            app:trackHeight="4dp"
+            android:layout_marginRight="32dp"
             android:value="50"
             android:valueFrom="0"
             android:valueTo="100"
             app:labelBehavior="gone"
-            app:thumbColor="@color/purple_200"
-           app:trackColorActive="@color/purple_200"
-            app:trackColorInactive="#61BB86FC"/>
+            app:thumbColor="@color/white"
+            app:thumbStrokeColor="#707070"
+            app:thumbStrokeWidth="1dp"
+            app:trackColorActive="@color/button_color"
+            app:trackColorInactive="@color/greyish"
+            app:trackHeight="8dp" />
 
 
         <LinearLayout
@@ -61,32 +52,32 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:layout_marginVertical="16dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Brightness"
-            android:layout_marginTop="25dp"
-            android:textStyle="bold"
-            android:layout_marginHorizontal="25dp"
-            android:textSize="18dp"
-            android:fontFamily="@font/roboto"
-            android:textColor="#CCFFFFFF"/>
+        <ImageView
+            android:layout_width="34dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="16dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_wb_sunny_black_24dp"
+            app:tint="@color/greyish" />
 
         <com.google.android.material.slider.Slider
             android:id="@+id/brightnessSlider"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            app:trackHeight="4dp"
+            android:layout_marginRight="32dp"
             android:value="50"
             android:valueFrom="0"
             android:valueTo="100"
             app:labelBehavior="gone"
-            app:thumbColor="@color/purple_200"
-            app:trackColorActive="@color/purple_200"
-            app:trackColorInactive="#61BB86FC"/>
+            app:thumbColor="@color/white"
+            app:thumbStrokeColor="#707070"
+            app:thumbStrokeWidth="1dp"
+            app:trackColorActive="@color/button_color"
+            app:trackColorInactive="@color/greyish"
+            app:trackHeight="8dp" />
 
     </LinearLayout>
 
@@ -103,11 +94,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginVertical="8dp"
             android:text="Modes"
             android:textSize="20dp"
             android:textStyle="bold"
             android:fontFamily="@font/roboto"
-            android:textColor="#CCFFFFFF"/>
+            android:textColor="@color/foreground_color"/>
 
 
 
@@ -118,15 +110,15 @@
             android:layout_marginVertical="15dp">
 
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/fadeBtn"
                 android:layout_width="20dp"
                 android:layout_height="60dp"
                 android:layout_marginLeft="50dp"
-                android:backgroundTint="#30B1BF"
+                android:backgroundTint="@color/button_color"
                 android:fontFamily="@font/roboto_bold"
                 android:text="Fade"
-                android:textColor="#000000"
+                android:textColor="@color/white"
                 android:layout_weight="1"/>
 
             <Space
@@ -135,15 +127,15 @@
                 android:layout_weight="0.5"/>
 
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/randomBtn"
                 android:layout_width="20dp"
                 android:layout_height="60dp"
                android:layout_marginRight="50dp"
-                android:backgroundTint="#30B1BF"
+                android:backgroundTint="@color/button_color"
                 android:fontFamily="@font/roboto_bold"
                 android:text="Random"
-                android:textColor="#000000"
+                android:textColor="@color/white"
                 android:layout_weight="1"/>
         </LinearLayout>
 
@@ -154,15 +146,15 @@
             android:layout_marginVertical="15dp">
 
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/staticBtn"
                 android:layout_width="20dp"
                 android:layout_height="60dp"
                 android:layout_marginLeft="50dp"
-                android:backgroundTint="#30B1BF"
+                android:backgroundTint="@color/button_color"
                 android:fontFamily="@font/roboto_bold"
                 android:text="Static"
-                android:textColor="#000000"
+                android:textColor="@color/white"
                 android:layout_weight="1"/>
 
             <Space
@@ -171,15 +163,15 @@
                 android:layout_weight="0.5"/>
 
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/splitBtn"
                 android:layout_width="20dp"
                 android:layout_height="60dp"
                 android:layout_marginRight="50dp"
-                android:backgroundTint="#30B1BF"
+                android:backgroundTint="@color/button_color"
                 android:fontFamily="@font/roboto_bold"
                 android:text="Split"
-                android:textColor="#000000"
+                android:textColor="@color/white"
                 android:layout_weight="1"/>
 
         </LinearLayout>
@@ -191,14 +183,16 @@
             android:layout_marginVertical="15dp">
 
 
-            <ImageButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/leftBtn"
                 android:layout_width="20dp"
                 android:layout_height="60dp"
                 android:layout_marginLeft="50dp"
                 android:layout_weight="1"
-                android:backgroundTint="#30B1BF"
-                app:srcCompat="@drawable/ic_left_arrow" />
+                android:backgroundTint="@color/button_color"
+                app:icon="@drawable/ic_left_arrow"
+                app:iconGravity="textStart"
+                android:tint="@color/white"/>
 
             <Space
                 android:layout_width="wrap_content"
@@ -206,14 +200,16 @@
                 android:layout_weight="0.5"/>
 
 
-            <ImageButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/rightBtn"
                 android:layout_width="20dp"
                 android:layout_height="60dp"
                 android:layout_marginRight="50dp"
                 android:layout_weight="1"
-                android:backgroundTint="#30B1BF"
-                app:srcCompat="@drawable/ic_right_arrow" />
+                android:backgroundTint="@color/button_color"
+                app:icon="@drawable/ic_right_arrow"
+                app:iconGravity="textStart"
+                android:tint="@color/white"/>
 
         </LinearLayout>
 
@@ -224,14 +220,17 @@
             android:layout_marginVertical="15dp">
 
 
-            <ImageButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/upBtn"
                 android:layout_width="20dp"
                 android:layout_height="60dp"
                 android:layout_marginLeft="50dp"
                 android:layout_weight="1"
-                android:backgroundTint="#30B1BF"
-                app:srcCompat="@drawable/ic_up_arrow" />
+                android:backgroundTint="@color/button_color"
+                app:icon="@drawable/ic_up_arrow"
+                app:iconGravity="textStart"
+                app:iconPadding="-2dp"
+                android:tint="@color/white"/>
 
             <Space
                 android:layout_width="wrap_content"
@@ -239,14 +238,17 @@
                 android:layout_weight="0.5"/>
 
 
-            <ImageButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/downBtn"
                 android:layout_width="20dp"
                 android:layout_height="60dp"
                 android:layout_marginRight="50dp"
                 android:layout_weight="1"
-                android:backgroundTint="#30B1BF"
-                app:srcCompat="@drawable/ic_down_arrow" />
+                android:backgroundTint="@color/button_color"
+                android:tint="@color/white"
+                app:icon="@drawable/ic_down_arrow"
+                app:iconGravity="textStart"
+                app:iconPadding="-2dp"/>
 
         </LinearLayout>
 

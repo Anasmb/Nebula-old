@@ -67,6 +67,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginRight="16dp"
             android:layout_weight="1"
+            app:tint="@color/greyish"
             app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
 
     </LinearLayout>
@@ -101,6 +102,7 @@
             android:layout_weight="1"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="16dp"
+            app:tint="@color/greyish"
             app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
 
     </LinearLayout>
@@ -144,6 +146,7 @@
             android:layout_weight="1"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="16dp"
+            app:tint="@color/greyish"
             app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
 
     </LinearLayout>
@@ -181,12 +184,13 @@
             android:layout_weight="20" />
 
         <ImageView
-            android:id="@+id/scheduleForwardImg"
+            android:id="@+id/scheduleForwardImg2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="16dp"
+            app:tint="@color/greyish"
             app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
 
     </LinearLayout>

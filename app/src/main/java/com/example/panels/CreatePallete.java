@@ -235,7 +235,8 @@ public class CreatePallete extends FragmentActivity {
                     // String hexColor = colorPickerView.getColorEnvelope().getHexCode();
 
                     PalleteColors[selectedBoxPosition] = color;
-                    cardView.setCardBackgroundColor(color);
+                   // cardView.setCardBackgroundColor(color);
+                    cardView.setCardForegroundColor(ColorStateList.valueOf(color));
                     isAnyColorSelected=true;
                     dialog.dismiss();
                 }
