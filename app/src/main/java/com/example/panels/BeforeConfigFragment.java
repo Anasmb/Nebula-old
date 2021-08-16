@@ -3,6 +3,7 @@ package com.example.panels;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,14 +15,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 
-public class BeforeConfigFragment extends Fragment {
+public class BeforeConfigFragment extends FragmentActivity {
 
     private BeforeConfigFragment.FragmentBeforeConfigListener listener;
-    MainActivity mainActivity;
-    private ImageButton backbtn;
+    private ImageView backbtn;
     private Button nxtbtn;
+    private ImageView routerImg;
+    private ImageView wifiImg;
     WifiManager wifiManager ;
     String esp32WifiName = "Esp32" ;     //TODO CHANGE
 
@@ -29,24 +32,24 @@ public class BeforeConfigFragment extends Fragment {
         void onInputBeforeConfigSent(CharSequence input);
     }
 
-
-
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_before_config,container,false);
+    protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_before_config);
 
-        mainActivity = new MainActivity();
-        
-        nxtbtn = view.findViewById(R.id.nextBtn);
-        backbtn = view.findViewById(R.id.backBtn);
+        nxtbtn = findViewById(R.id.nextBtn); //FIXME COLOR CHANGE WHEN THE DEVICE IS CONNECTED TO ESP32
+        backbtn = findViewById(R.id.back_img_button);
+        routerImg = findViewById(R.id.routerImg);
+        wifiImg = findViewById(R.id.wifiImg);
+
+        routerImg.setColorFilter(getResources().getColor(R.color.foreground_color));
+        wifiImg.setColorFilter(getResources().getColor(R.color.foreground_color));
+        backbtn.setColorFilter(getResources().getColor(R.color.back_button_color));
 
         nxtbtn.setOnClickListener(buttonListener);
         backbtn.setOnClickListener(buttonListener);
 
         checkIPAddress();
-        
-        return  view;
     }
 
     private View.OnClickListener buttonListener = new View.OnClickListener() {
@@ -54,11 +57,11 @@ public class BeforeConfigFragment extends Fragment {
         public void onClick(View view) {
 
             switch (view.getTag().toString()){
-                case "nextBtn":
+                case "next":
                     openNextFragment();
                     break;
-                case "backBtn":
-                    openPreviousFragment();
+                case "previous":
+                    finish();
                     break;
 
             }
@@ -66,10 +69,10 @@ public class BeforeConfigFragment extends Fragment {
         }
     };
 
-    public void openNextFragment(){
+    public void openNextFragment(){ //TODO uncomment below to make sure device is connected to esp32 wifi
         //if(checkIPAddress()) {
        //     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_empty, new WifiConfig()).commit();
-            Intent intent = new Intent(getActivity(),WifiConfig.class);
+            Intent intent = new Intent(this,WifiConfig.class);
             startActivity(intent);
             //Intent configIntent = new Intent(this, WifiConfig.class);
           //  startActivity(configIntent);
@@ -79,13 +82,9 @@ public class BeforeConfigFragment extends Fragment {
        // else Toast.makeText(getActivity().getApplicationContext(),"Connect To Nebula To Continue", Toast.LENGTH_LONG).show();
     }
 
-    private void openPreviousFragment(){
-        listener.onInputBeforeConfigSent("back");
-    }
-
 
     private boolean checkIPAddress(){
-        wifiManager = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         DhcpInfo dhcpInfo = wifiManager.getDhcpInfo();
         int ipNebula = dhcpInfo.gateway;
         String ipString = String.format("%d.%d.%d.%d", (ipNebula & 0xff), (ipNebula >> 8 & 0xff), (ipNebula >> 16 & 0xff), (ipNebula >> 24 & 0xff));
@@ -98,19 +97,14 @@ public class BeforeConfigFragment extends Fragment {
     }
 
     public void onAttach(@NonNull Context context) { //THIS IS USED WHEN IF THE ACTIVITY ATTACH THE INTERFACE
-        super.onAttach(context);
-        if(context instanceof BeforeConfigFragment.FragmentBeforeConfigListener){
-            listener = (BeforeConfigFragment.FragmentBeforeConfigListener) context;
-        }
-        else {
-            throw new RuntimeException(context.toString() + " Must implement FragmentBeforeConfigListener");
-        }
+//        super.onAttach(context);
+//        if(context instanceof BeforeConfigFragment.FragmentBeforeConfigListener){
+//            listener = (BeforeConfigFragment.FragmentBeforeConfigListener) context;
+//        }
+//        else {
+//            throw new RuntimeException(context.toString() + " Must implement FragmentBeforeConfigListener");
+//        }
     }
 
-    @Override
-    public void onDetach() {// THIS IS CALLED WHEN WE REMOVE THIS FRAGMENT FROM THE ACITVITY
-        super.onDetach();
-        listener = null;
-    }
 
 }

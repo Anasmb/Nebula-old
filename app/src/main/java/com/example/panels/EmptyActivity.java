@@ -3,6 +3,7 @@ package com.example.panels;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 public class EmptyActivity extends AppCompatActivity implements BeforeConfigFragment.FragmentBeforeConfigListener{
@@ -23,7 +24,8 @@ public class EmptyActivity extends AppCompatActivity implements BeforeConfigFrag
 
                 break;
             case "beforeconfig":
-                selectedFragment = new BeforeConfigFragment();
+                Intent intent = new Intent(this,BeforeConfigFragment.class);
+                startActivity(intent);
                 break;
             case "wificonfig":
               //  selectedFragment =  new WifiConfig();

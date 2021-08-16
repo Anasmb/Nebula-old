@@ -35,7 +35,7 @@
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/reply_blue_600"
+        android:background="@color/app_bottom_nav"
         app:itemIconTint="@color/button_color"
         app:itemTextColor="@color/button_color"
         app:menu="@menu/bottom_navigation"

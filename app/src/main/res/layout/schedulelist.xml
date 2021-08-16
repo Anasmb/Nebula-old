@@ -8,8 +8,11 @@
     android:layout_marginTop="1dp"
     android:layout_marginEnd="1dp"
     android:orientation="vertical"
-    android:padding="12dp"
-    android:background="@color/background_color">
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="8dp"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
 
 
         <LinearLayout
@@ -73,7 +76,7 @@
                     android:layout_marginRight="3dp"
                     android:fontFamily="@font/roboto"
                     android:textStyle="bold"
-                    android:textColor="@color/light_greyish"
+                    android:textColor="@color/light_gray"
                     android:textSize="10dp"/>
 
                 <TextView
@@ -83,7 +86,7 @@
                     android:layout_marginRight="3dp"
                     android:fontFamily="@font/roboto"
                     android:textStyle="bold"
-                    android:textColor="@color/light_greyish"
+                    android:textColor="@color/light_gray"
                     android:textSize="10dp"/>
 
                 <TextView
@@ -93,7 +96,7 @@
                     android:layout_marginRight="3dp"
                     android:fontFamily="@font/roboto"
                     android:textStyle="bold"
-                    android:textColor="@color/light_greyish"
+                    android:textColor="@color/light_gray"
                     android:textSize="10dp"/>
 
                 <TextView
@@ -103,7 +106,7 @@
                     android:layout_marginRight="3dp"
                     android:fontFamily="@font/roboto"
                     android:textStyle="bold"
-                    android:textColor="@color/light_greyish"
+                    android:textColor="@color/light_gray"
                     android:textSize="10dp"/>
 
                 <TextView
@@ -113,7 +116,7 @@
                     android:layout_marginRight="3dp"
                     android:fontFamily="@font/roboto"
                     android:textStyle="bold"
-                    android:textColor="@color/light_greyish"
+                    android:textColor="@color/light_gray"
                     android:textSize="10dp"/>
 
                 <TextView
@@ -123,7 +126,7 @@
                     android:layout_marginRight="3dp"
                     android:fontFamily="@font/roboto"
                     android:textStyle="bold"
-                    android:textColor="@color/light_greyish"
+                    android:textColor="@color/light_gray"
                     android:textSize="10dp"/>
 
 

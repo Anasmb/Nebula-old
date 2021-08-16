@@ -1,50 +1,38 @@
 package com.example.panels;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.example.panels.Model.Pallete;
 import com.example.panels.SharedPref.SharedPref;
-import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
-import com.skydoves.colorpickerview.ColorEnvelope;
-import com.skydoves.colorpickerview.ColorPickerDialog;
 import com.skydoves.colorpickerview.ColorPickerView;
-import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener;
 
 import java.util.ArrayList;
 import java.util.UUID;
 
 public class CreatePallete extends FragmentActivity {
 
+    //FIXME a bug related to finish button and editText
+    //TODO user can add multiple pallete but not selecting all the created color
+
     private EditText palleteEditText;
     private MaterialButton addBtn;
-    private MaterialToolbar toolbar;
+    private ImageView backImage;
 
 
     androidx.gridlayout.widget.GridLayout gridLayout;
@@ -58,13 +46,14 @@ public class CreatePallete extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_pallete);
 
-        toolbar = findViewById(R.id.createPalletetoolbar);
         gridLayout=findViewById(R.id.gridLayout);
         palleteEditText = findViewById(R.id.namePallete);
         addBtn = findViewById(R.id.addPalleteBtn);
+        backImage = findViewById(R.id.back_img_button);
 
-        toolbar.setTitle("Create Pallete");
-        addBtn.setBackgroundColor(getResources().getColor(R.color.greyish));
+        backImage.setColorFilter(getResources().getColor(R.color.back_button_color));
+        backImage.setOnClickListener(backImageButtonListener);
+        addBtn.setBackgroundColor(getResources().getColor(R.color.gray));
         addBtn.setClickable(false);
 
         palleteEditText.addTextChangedListener(new TextWatcher() {
@@ -74,13 +63,13 @@ public class CreatePallete extends FragmentActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
             {
-                    if((charSequence.length() > 0 && charSequence.length() < 12) && isAnyColorSelected){
+                    if(checkPalleteName(charSequence) && isAnyColorSelected){
                         addBtn.setBackgroundColor(getResources().getColor(R.color.button_color));
                         addBtn.setClickable(true);
                     }
                     else
                     {
-                        addBtn.setBackgroundColor(getResources().getColor(R.color.greyish));
+                        addBtn.setBackgroundColor(getResources().getColor(R.color.gray));
                         addBtn.setClickable(false);
                     }
             }
@@ -97,14 +86,10 @@ public class CreatePallete extends FragmentActivity {
             public void onClick(View view)
             {
 
-
-                if(isAnyColorSelected)
+                if(isAnyColorSelected && checkPalleteName(palleteEditText.getText()))
                     Save();
                 else
                     Toast.makeText(CreatePallete.this,"Please Select Any color",Toast.LENGTH_SHORT).show();
-
-
-
 
             }
         });
@@ -113,17 +98,28 @@ public class CreatePallete extends FragmentActivity {
         addItemInGrid();
     }
 
-    public  void  addItemInGrid()
-    {
+    View.OnClickListener backImageButtonListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            finish();
+        }
+    };
 
-       final View view1 = getLayoutInflater().inflate(R.layout.layout_panel_add_item ,gridLayout, false);
-
-       View view2 = getLayoutInflater().inflate(R.layout.layout_panel_add_item_2 ,gridLayout, false);
 
 
+    private boolean checkPalleteName(CharSequence charSequence){
+        if(charSequence.length() > 0 && charSequence.length()< 19)
+            return  true;
 
-        view1.setTag(gridIndex);
+            return false;
+    }
 
+    public  void  addItemInGrid() {
+
+        final View palleteCard = getLayoutInflater().inflate(R.layout.pallete_color_card,gridLayout, false);
+       View newPalleteCard = getLayoutInflater().inflate(R.layout.add_new_pallete,gridLayout, false);
+
+        palleteCard.setTag(gridIndex);
 
         View.OnClickListener onClickListener = new View.OnClickListener()
         {
@@ -139,16 +135,16 @@ public class CreatePallete extends FragmentActivity {
         if(gridIndex==0)
         {
             gridLayout.removeAllViews();
-            gridLayout.addView(view1);
-            gridLayout.addView(view2);
+            gridLayout.addView(palleteCard);
+            gridLayout.addView(newPalleteCard);
 
         }
         else if(gridIndex==4)
         {
             gridLayout.removeViewAt(gridIndex);
-            gridLayout.addView(view1);
+            gridLayout.addView(palleteCard);
 
-            View view3= getLayoutInflater().inflate(R.layout.layout_panel_add_item ,gridLayout, false);
+            View view3= getLayoutInflater().inflate(R.layout.pallete_color_card,gridLayout, false);
             view3.setTag(gridIndex+1);
             view3.setOnClickListener(onClickListener);
             gridLayout.addView(view3);
@@ -156,30 +152,27 @@ public class CreatePallete extends FragmentActivity {
         else
         {
             gridLayout.removeViewAt(gridIndex);
-            gridLayout.addView(view1);
-            gridLayout.addView(view2);
+            gridLayout.addView(palleteCard);
+            gridLayout.addView(newPalleteCard);
         }
 
 
 
         if(gridIndex!=5)
         {
-            view2.setOnClickListener(new View.OnClickListener()
+            newPalleteCard.setOnClickListener(new View.OnClickListener()
             {
                 @Override
                 public void onClick (View v)
                 {
-
-
                     addItemInGrid();
-
                 }
             });
 
         }
 
 
-        view1.setOnClickListener(onClickListener);
+        palleteCard.setOnClickListener(onClickListener);
         gridIndex++;
 
     }
@@ -220,12 +213,11 @@ public class CreatePallete extends FragmentActivity {
 
     public  void invokeColorListener(final MaterialCardView cardView, final int selectedBoxPosition) {
 
-
             final Dialog dialog=new Dialog(this);
             dialog.setContentView(R.layout.custom_dialog);
             dialog.show();
-            final ColorPickerView colorPickerView=dialog.findViewById(R.id.colorPickerView);
-            MaterialButton btnDone=dialog.findViewById(R.id.btnDone) ;
+            final ColorPickerView colorPickerView = dialog.findViewById(R.id.colorPickerView);
+            MaterialButton btnDone = dialog.findViewById(R.id.btnDone) ;
             btnDone.setOnClickListener(new View.OnClickListener()
             {
                 @Override
@@ -235,7 +227,7 @@ public class CreatePallete extends FragmentActivity {
                     // String hexColor = colorPickerView.getColorEnvelope().getHexCode();
 
                     PalleteColors[selectedBoxPosition] = color;
-                   // cardView.setCardBackgroundColor(color);
+                    cardView.setCardBackgroundColor(color);
                     cardView.setCardForegroundColor(ColorStateList.valueOf(color));
                     isAnyColorSelected=true;
                     dialog.dismiss();
@@ -244,8 +236,6 @@ public class CreatePallete extends FragmentActivity {
 
             Window window = dialog.getWindow();
             window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
-
 
 
     }

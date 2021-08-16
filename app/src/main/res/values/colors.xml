@@ -11,30 +11,32 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="Off_Color">#3C3C3C</color>
-    <color name="dark_greyish">#7A7A7A</color>
-    <color name="greyish">#9C9C9C</color>
-    <color name="light_greyish">#A9A9A9</color>
-    <color name="very_light_greyish">#CACACA</color>
-    <color name="button_color">#F9AA33</color>
-    <color name="light_blue_600">#FF039BE5</color>
-    <color name="light_blue_900">#FF01579B</color>
-    <color name="light_blue_A200">#FF40C4FF</color>
-    <color name="light_blue_A400">#FF00B0FF</color>
-    <color name="black_overlay">#66000000</color>
-
+    <color name="dark_gray">#7A7A7A</color>
+    <color name="gray">#9C9C9C</color>
+    <color name="light_gray">#A9A9A9</color>
+    <color name="very_light_gray">#CACACA</color>
+    <color name="super_light_gray">#EBEBEB</color>
+    <color name="button_color">#5E92F6</color>
+    <color name="bermuda">#80CBC4</color>
+    <color name="dark_bermuda">#63A29C</color>
+    <color name="light_black">#212121</color>
 
 
     <!--  Theme colors  -->
-    <color name="background_color">@color/white</color>
-    <color name="foreground_color">@color/black</color>
-    <color name="top_app_bar">@color/reply_blue_600</color>
-    <color name="system_bar">@color/reply_blue_700</color>
-    <color name="nav_bar">@color/reply_blue_600</color>
-    <color name="layout_background">@color/very_light_greyish</color>
-    <color name="thumb_color_off">@color/dark_greyish</color>
-    <color name="track_color_off">@color/light_greyish</color>
+    <color name="background_color">#F5F7FA</color>
+    <color name="background_color_darker">@color/super_light_gray</color>
+    <color name="foreground_color">@color/black</color> <!-- texts, etc... -->
+    <color name="tool_bar_color">@color/background_color</color> <!-- tool bar for the create schedule,select wifi,create schedule, etc...-->
+    <color name="system_bar">@color/background_color</color> <!-- battery,wifi,clocks,etc...-->
+    <color name="nav_bar">@color/white</color> <!-- Back,Home,Apps-->
+    <color name="app_bottom_nav">@color/white</color> <!-- application bottom navigation: Home,Layout,Edit,Schedule,More-->
+    <color name="layout_background">#EAEAEA</color>
+    <color name="thumb_color_off">@color/dark_gray</color>
+    <color name="track_color_off">@color/light_gray</color>
     <color name="thumb_color_on">@color/button_color</color>
     <color name="track_color_on">#D27E00</color>
     <color name="divider">#E0E0E0</color>
+    <color name="lighting_color">#F9AA33</color>
+    <color name="back_button_color">@color/gray</color>
 
 </resources>

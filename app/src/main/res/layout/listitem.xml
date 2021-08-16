@@ -31,8 +31,7 @@
             app:cardCornerRadius="0dp"
             app:strokeColor="@color/black"
             app:strokeWidth="1dp"
-           app:cardForegroundColor="@color/light_blue_600"
-            />
+           app:cardForegroundColor="@color/white" />
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardColor4"
             android:layout_width="match_parent"

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,6 +26,7 @@ import java.util.ArrayList;
 
 public class ScheduleFragment extends Fragment {
 
+    private static final String LOG_TAG =  "ScheduleFragment";
     private RecyclerView scheduleRecyclerView;
     private RecyclerView.Adapter scheduleAdapter;
     private  RecyclerView.LayoutManager layoutManager;
@@ -76,6 +79,14 @@ public class ScheduleFragment extends Fragment {
 
         floatingActionButton.setOnClickListener(fablistener);
 
+        setStatusBarColor();
+
+    }
+
+    private void setStatusBarColor(){
+        Window window = getActivity().getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(getResources().getColor(R.color.background_color));
     }
 
     View.OnClickListener fablistener = new View.OnClickListener() {

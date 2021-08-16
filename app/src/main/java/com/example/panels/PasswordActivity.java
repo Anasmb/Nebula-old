@@ -1,12 +1,10 @@
 package com.example.panels;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.net.DhcpInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
@@ -19,7 +17,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -45,7 +42,7 @@ public class PasswordActivity extends FragmentActivity {
     private ImageView panelImage;
     private Button connectBtn;
     private Button doneButton;
-    private ImageButton backBtn;
+    private ImageView backBtn;
     private Thread Thread1 = null;
     private Socket socket;
     private PrintWriter output;
@@ -74,6 +71,7 @@ public class PasswordActivity extends FragmentActivity {
         connectBtn = findViewById(R.id.connectbtn);
         doneButton = findViewById(R.id.doneBtn);
         backBtn = findViewById(R.id.backBtnPass);
+        backBtn.setColorFilter(getResources().getColor(R.color.back_button_color));
         ssidName = getIntent().getStringExtra("ssid");
         SERVER_IP = "192.168.4.1";
         SERVER_PORT = 3636;
@@ -109,8 +107,8 @@ public class PasswordActivity extends FragmentActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if(charSequence.length() > 31){
-                    Toast.makeText(getApplicationContext(), "Nebula can't support more than 32 Characters of password :(",Toast.LENGTH_SHORT).show();
-                    connectBtn.setBackgroundColor(getResources().getColor(R.color.defult_8));
+                    Toast.makeText(getApplicationContext(), "Nebula can't support more than 31 Characters of password :(",Toast.LENGTH_SHORT).show();
+                    connectBtn.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.gray)));
                     connectBtn.setClickable(false);
                 }
             }
@@ -118,12 +116,12 @@ public class PasswordActivity extends FragmentActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 if(editable.length() > 7){
-                    connectBtn.setBackgroundColor(getResources().getColor(R.color.purple_200));
+                    connectBtn.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.button_color)));
                     connectBtn.setClickable(true);
                     ssidPswd = editable.toString();
                 }
                 else if(editable.length() < 8){
-                    connectBtn.setBackgroundColor(getResources().getColor(R.color.black));
+                    connectBtn.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.gray)));
                     connectBtn.setClickable(false);
                 }
             }
@@ -155,7 +153,7 @@ public class PasswordActivity extends FragmentActivity {
         connectBtn.setClickable(false);
         pswd.setEnabled(false);
         backBtn.setClickable(false);
-        connectBtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#212121")));
+        connectBtn.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.gray)));
         UIUtil.hideKeyboard(PasswordActivity.this);
     }
 

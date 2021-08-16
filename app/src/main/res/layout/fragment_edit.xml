@@ -7,6 +7,25 @@
     android:background="@color/background_color">
 
     <LinearLayout
+        android:id="@+id/editTopNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Customize"
+            android:fontFamily="@font/roboto"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:textColor="@color/foreground_color"/>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -19,22 +38,22 @@
             android:layout_marginLeft="16dp"
             android:layout_gravity="center"
             android:src="@drawable/ic_speed_black_24dp"
-            app:tint="@color/greyish" />
+            app:tint="@color/gray" />
 
         <com.google.android.material.slider.Slider
             android:id="@+id/speedSlider"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="32dp"
-            android:value="50"
+            android:value="500"
             android:valueFrom="0"
-            android:valueTo="100"
+            android:valueTo="1000"
             app:labelBehavior="gone"
             app:thumbColor="@color/white"
             app:thumbStrokeColor="#707070"
             app:thumbStrokeWidth="1dp"
             app:trackColorActive="@color/button_color"
-            app:trackColorInactive="@color/greyish"
+            app:trackColorInactive="@color/gray"
             app:trackHeight="8dp" />
 
 
@@ -61,22 +80,22 @@
             android:layout_marginLeft="16dp"
             android:layout_gravity="center"
             android:src="@drawable/ic_wb_sunny_black_24dp"
-            app:tint="@color/greyish" />
+            app:tint="@color/gray" />
 
         <com.google.android.material.slider.Slider
-            android:id="@+id/brightnessSlider"
+            android:id="@+id/editBrightnessSlider"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="32dp"
-            android:value="50"
+            android:value="127.5"
             android:valueFrom="0"
-            android:valueTo="100"
+            android:valueTo="255"
             app:labelBehavior="gone"
             app:thumbColor="@color/white"
             app:thumbStrokeColor="#707070"
             app:thumbStrokeWidth="1dp"
             app:trackColorActive="@color/button_color"
-            app:trackColorInactive="@color/greyish"
+            app:trackColorInactive="@color/gray"
             app:trackHeight="8dp" />
 
     </LinearLayout>

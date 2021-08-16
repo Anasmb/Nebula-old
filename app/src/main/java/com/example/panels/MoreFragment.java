@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
@@ -24,7 +26,7 @@ public class MoreFragment extends Fragment {
         newDeviceLayout = view.findViewById(R.id.newDeviceLayout);
         newDeviceLayout.setOnClickListener(newDeviceLayoutListener);
 
-
+        setStatusBarColor();
 
         return  view;
     }
@@ -36,6 +38,12 @@ public class MoreFragment extends Fragment {
                     startActivity(intent);
                 }
             };
+
+    private void setStatusBarColor(){
+        Window window = getActivity().getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(getResources().getColor(R.color.white));
+    }
 
 
 }

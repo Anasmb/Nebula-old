@@ -5,39 +5,50 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.ToggleButton;
+import android.widget.Toast;
 
-import com.example.panels.Model.Pallete;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.slider.Slider;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.net.Socket;
 import java.util.ArrayList;
 
+//THE MOST TIME CONSUMING AND BRAINSTORMING CLASS IN THE WHOLE APPLICATION >:(
 public class LayoutFragment extends Fragment{
 
     View view;
     RelativeLayout relativeLayout;
 
-    private static final String LOG_TAG =  "LayoutFragment";
+    private final String LOG_TAG =  "LayoutFragment";
     private FragmentLayoutListener listener;
-    private ArrayList<String> panelsLayout; //list messages from server
-    private ArrayList<Panel> panels;
+
+    private ArrayList<Panel> panels ;
     private ImageView currentSelectedPanel;
     private ImageView previousSelectedPanel;
-    private Slider brightness;
-    private ToggleButton selectButton;
-
+    private ImageView refreshButton;
+    private Animation refreshAnimation;
+    private MaterialButton clearButton;
+    private MaterialButton selectAllButton;
+    private boolean selectAllButtonToggle = false;
+    private boolean startTimer = true;
+    private Slider brightnessSlider;
     private ArrayList<Panel> horizontalPanels;
+
 
     float xDown = 0;
     float yDown = 0 ;
@@ -50,39 +61,35 @@ public class LayoutFragment extends Fragment{
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        setStatusBarColor();
+
+        Log.d(LOG_TAG, "Inside OnviewCreated");
+
+
+
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_layout,container,false);
+        
 
-        panels = new ArrayList<Panel>();
-        panelsLayout = new ArrayList<String>();
+        panels = new ArrayList<>(); ;
         relativeLayout = view.findViewById(R.id.panelsLayout);
         relativeLayout.setOnTouchListener(relativeListener);
-        brightness = view.findViewById(R.id.brightnessSlider);
-        selectButton = view.findViewById(R.id.selectAllToggle);
-        selectButton.setOnClickListener(selectAllPanels);
-        
-        //right part
-        panelsLayout.add("100 201 101");
-        panelsLayout.add("101 nul 102");
-        panelsLayout.add("102 103 nul");
-        panelsLayout.add("103 nul 104");
-        panelsLayout.add("104 105 nul");
-        panelsLayout.add("105 nul nul");
-        panelsLayout.add("106 nul nul");
+        brightnessSlider = view.findViewById(R.id.layoutBrightnessSlider);
+        brightnessSlider.addOnSliderTouchListener(brightnessSliderTouchListener);
+        refreshButton = view.findViewById(R.id.refreshButton);
+        refreshButton.setOnClickListener(refreshClickListener);
+        selectAllButton = view.findViewById(R.id.selectAllButton);
+        clearButton = view.findViewById(R.id.clearButton);
+        selectAllButton.setOnClickListener(selectAllClickListener);
+        clearButton.setOnClickListener(clearButtonClickListener);
 
-        //left part
-        panelsLayout.add("201 202 nul");
-        panelsLayout.add("202 nul 203");
-        panelsLayout.add("203 204 nul");
-        panelsLayout.add("204 nul 206");
-        panelsLayout.add("206 207 nul");
-        panelsLayout.add("207 nul nul");
+        brightnessSlider.setValue(MainActivity.brightnessValue);
 
-        messageAnalyzer();
+               messageAnalyzer(); //FIRST LAYOUT MESSAGE MUST BE THE MAIN PANEL
 
         return  view;
     }
@@ -91,8 +98,6 @@ public class LayoutFragment extends Fragment{
         super.onAttach(context);
         if(context instanceof LayoutFragment.FragmentLayoutListener){
             listener = (LayoutFragment.FragmentLayoutListener) context;
-            listener.onInputLayoutSent("refresh");
-            Log.d(LOG_TAG,"Sent to MainActivity 'refresh' ");
         }
         else {
             throw new RuntimeException(context.toString() + " Must implement FragmentLayoutListener");
@@ -101,7 +106,7 @@ public class LayoutFragment extends Fragment{
 
     View.OnTouchListener relativeListener = new View.OnTouchListener() {
         @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
+        public boolean onTouch(View view, MotionEvent motionEvent) { //determine which panel did the user clicked
 
         switch (motionEvent.getActionMasked()){
 
@@ -134,37 +139,55 @@ public class LayoutFragment extends Fragment{
         }
     };
 
-    public void messageAnalyzer(){
 
-    //    for(int i = 0 ; i < panelsLayout.size() ; i++){
-          String message = panelsLayout.get(0);
-          int parent = message.substring(0,3).equals("nul") ? 0 : Integer.parseInt(message.substring(0,3));//parent address
-          int leftChild = message.substring(4,7).equals("nul") ? 0 : Integer.parseInt(message.substring(4,7)); //left child address
-          int rightChild = message.substring(8,11).equals("nul") ? 0 : Integer.parseInt(message.substring(8,11)); //right child address
-           // Log.d("Debug" , "Message " + i + " Contain, Parent ID = " + parent + " , Left Child ID = " + leftChild + " , Right Child ID = " + rightChild );
-          displayPanels(parent , leftChild , rightChild);
+    private void setStatusBarColor(){
+        Window window = getActivity().getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(getResources().getColor(R.color.background_color));
+    }
+
+    public void messageAnalyzer(){
+        if (MainActivity.panelsLayout.size() > 0) {
+            //    for(int i = 0 ; i < panelsLayout.size() ; i++){
+            Log.d(LOG_TAG, "panelsLayout size = " + MainActivity.panelsLayout.size());
+            String message = MainActivity.panelsLayout.get(0);
+            int parent = message.substring(0, 3).equals("nul") ? 0 : Integer.parseInt(message.substring(0, 3));//parent address
+            int leftChild = message.substring(4, 7).equals("nul") ? 0 : Integer.parseInt(message.substring(4, 7)); //left child address
+            int rightChild = message.substring(8, 11).equals("nul") ? 0 : Integer.parseInt(message.substring(8, 11)); //right child address
+            // Log.d("Debug" , "Message " + i + " Contain, Parent ID = " + parent + " , Left Child ID = " + leftChild + " , Right Child ID = " + rightChild );
+            displayPanels(parent, leftChild, rightChild);
 
       //  }
+
+        }
     }
 
-    public void addLayout(String message){
-       panelsLayout.add(message.substring(7 , message.length()));  //This remove the layout word
 
-    }
+    public void onMainReceive(String message){ //RECEIVE DATA FROM MainActivity
 
-    public void refreshLayout(View view){
-        //new Thread(new EditLayout.Thread3("refresh")).start();
-    }
-
-    public void onMainReceive(String message){
-        if(message.startsWith("layout")){
-           Log.d(LOG_TAG, message);
-
-            //addLayout(message);
+           Log.d(LOG_TAG, "Received From MainActivity: " + message);
+           if (startTimer){
+         //      time(startTimer);
+               startTimer = false;
         }
 
     }
 
+    private void time(boolean start) {
+        if (start){
+            new CountDownTimer(5000,1000){
+                @Override
+                public void onTick(long l) {
+
+                }
+
+                @Override
+                public void onFinish() {
+                    Log.d(LOG_TAG, "Timer Finished");
+                }
+            }.start();
+        }
+    }
  /*  View.OnClickListener panelImageClick = new View.OnClickListener() {
        @Override
        public void onClick(View view) {
@@ -396,8 +419,8 @@ public class LayoutFragment extends Fragment{
 
     private String findMessageWithID(int id){
         String message = null;
-        for(int i = 0 ; i < panelsLayout.size() ; i++){
-            message = panelsLayout.get(i);
+        for(int i = 0 ; i < MainActivity.panelsLayout.size() ; i++){
+            message = MainActivity.panelsLayout.get(i);
             if(Integer.parseInt(message.substring(0,3)) == id){
                 return message;
             }
@@ -432,7 +455,7 @@ public class LayoutFragment extends Fragment{
         for(int i = 0 ; i < panels.size() ; i++) {
             panelInfo = panels.get(i);
           view = relativeLayout.getChildAt(i);
-           if((panelInfo.getxLocation() <= x + 30 && panelInfo.getxLocation() >= x - 30) && (panelInfo.getyLocation() <= y + 30 && panelInfo.getyLocation() >= y - 30)){
+           if((panelInfo.getxLocation() <= (x + 30) && panelInfo.getxLocation() >= (x - 30) && (panelInfo.getyLocation() <= (y + 30) && panelInfo.getyLocation() >= (y - 30)))){
               // Toast.makeText(getView().getContext(), "Panel ID = " + view.getTag(), Toast.LENGTH_SHORT ).show();
 
                currentSelectedPanel = (ImageView) view;
@@ -443,24 +466,71 @@ public class LayoutFragment extends Fragment{
         }
     }
 
-     View.OnClickListener selectAllPanels = new View.OnClickListener() {
+    Slider.OnSliderTouchListener brightnessSliderTouchListener = new Slider.OnSliderTouchListener() {
+        @Override
+        public void onStartTrackingTouch(@NonNull @NotNull Slider slider) {
+
+        }
+
+        @Override
+        public void onStopTrackingTouch(@NonNull @NotNull Slider slider) {
+                Log.d(LOG_TAG, "Brightness slider value = " + slider.getValue());
+                MainActivity.brightnessValue = (int) slider.getValue();
+                listener.onInputLayoutSent("bn ");
+        }
+    };
+
+    View.OnClickListener refreshClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+            refreshAnimation = new RotateAnimation(0.0f,360.0f,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+            refreshAnimation.setRepeatCount(-1);
+            refreshAnimation.setDuration(1000);
+            refreshButton.setAnimation(refreshAnimation);
+            refreshButton.startAnimation(refreshAnimation);
+            messageAnalyzer();
+
+        }
+    };
+
+    View.OnClickListener clearButtonClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+        }
+    };
+
+     View.OnClickListener selectAllClickListener = new View.OnClickListener() {
          @Override
          public void onClick(View view) {
-             ImageView image = null;
-             if(selectButton.isChecked()){
-                 for(int i = 0 ; i < panels.size() ; i++){
-                     image = (ImageView) relativeLayout.getChildAt(i);
-                     image.setImageResource(R.drawable.ic_tri_polygon_selected_);
-                 }
+             selectAllButtonToggle = !selectAllButtonToggle;
+             if(selectAllButtonToggle){
+                 selectAllButton.setStrokeColor(ColorStateList.valueOf(getResources().getColor(R.color.button_color)));
+                 selectAllPanels(true);
              }
-             else {
-                 for(int i = 0 ; i < panels.size() ; i++){
-                     image = (ImageView) relativeLayout.getChildAt(i);
-                     image.setImageResource(R.drawable.ic_tri_polygon);
-                 }
+             else{
+                  selectAllButton.setStrokeColor(ColorStateList.valueOf(getResources().getColor(R.color.gray)));
+                 selectAllPanels(false);
              }
          }
      };
+
+    private void selectAllPanels(boolean checked){
+        ImageView image = null;
+        if(checked){
+            for(int i = 0 ; i < panels.size() ; i++){
+                image = (ImageView) relativeLayout.getChildAt(i);
+                image.setImageResource(R.drawable.ic_tri_polygon_selected_);
+            }
+        }
+        else {
+            for(int i = 0 ; i < panels.size() ; i++){
+                image = (ImageView) relativeLayout.getChildAt(i);
+                image.setImageResource(R.drawable.ic_tri_polygon);
+            }
+        }
+    }
 
 
     private void getHorizontalPanels(){

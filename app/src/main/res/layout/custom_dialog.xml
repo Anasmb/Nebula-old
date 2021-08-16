@@ -19,8 +19,8 @@
         android:layout_margin="20dp"
         android:text="Done"
         android:textSize="20dp"
-        android:backgroundTint="@color/greyish"
-        android:background="@color/greyish"
+        android:backgroundTint="@color/gray"
+        android:background="@color/gray"
         />
 
 </LinearLayout>

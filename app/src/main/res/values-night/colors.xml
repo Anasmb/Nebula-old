@@ -8,20 +8,27 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="Off_Color">#3C3C3C</color>
-    <color name="defult_8">#14FFFFFF</color>
-    <color name="defult_12">#1FFFFFFF</color>
-    <color name="button_color">#F9AA33</color>
-    <color name="light_blue_600">#FF039BE5</color>
-    <color name="light_blue_900">#FF01579B</color>
-    <color name="light_blue_A200">#FF40C4FF</color>
-    <color name="light_blue_A400">#FF00B0FF</color>
-    <color name="black_overlay">#66000000</color>
+    <color name="bermuda">#80CBC4</color>
+    <color name="dark_bermuda">#63A29C</color>
+    <color name="light_gray">#A9A9A9</color>
+    <color name="dark_gray">#7A7A7A</color>
+    <color name="light_black">#212121</color>
+
 
 
     <!--  Theme colors  -->
-    <color name="background_color">#121212</color>
-    <color name="foreground_color">#ffffff</color>
-    <color name="top_app_bar">@color/purple_500</color>
-    <color name="system_bar">@color/purple_700</color>
+    <color name="background_color">@color/light_black</color>
+    <color name="foreground_color">@color/white</color> <!-- texts, etc... -->
+    <color name="tool_bar_color">@color/background_color</color>  <!-- tool bar for the create schedule,select wifi,create schedule, etc...-->
+    <color name="system_bar">@color/background_color</color> <!-- battery,wifi,clocks,etc...-->
+    <color name="nav_bar">#303030</color> <!-- Back,Home,Apps-->>
+    <color name="app_bottom_nav">#303030</color> <!-- application bottom navigation: Home,Layout,Edit,Schedule,More-->
+    <color name="layout_background">@color/app_bottom_nav</color>
+    <color name="button_color">@color/bermuda</color>
+    <color name="thumb_color_off">@color/dark_gray</color>
+    <color name="thumb_color_on">@color/bermuda</color>
+    <color name="track_color_off">@color/light_gray</color>
+    <color name="track_color_on">@color/dark_bermuda</color>
+    <color name="divider">#707070</color>
 
 </resources>

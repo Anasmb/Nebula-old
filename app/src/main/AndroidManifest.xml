@@ -9,11 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Panels">
-        <activity android:name=".EmptyActivity"></activity>
+        <activity android:name=".ScheduleCustomizationActivity"></activity>
+        <activity android:name=".EmptyActivity" />
         <activity android:name=".existingActivity" />
         <activity android:name=".LayoutFragment" />
         <activity android:name=".CreatePallete" />
-        <activity android:name=".SetScheduleFragment"/>
+        <activity android:name=".SetScheduleFragment" />
         <activity android:name=".PasswordActivity" />
         <activity android:name=".WifiConfig" />
         <activity android:name=".BeforeConfigFragment" />
@@ -29,11 +30,11 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
 </manifest>

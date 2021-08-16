@@ -9,14 +9,31 @@
     tools:context=".CreatePallete"
     android:orientation="vertical">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/createPalletetoolbar"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/reply_blue_600"
-        android:minHeight="?attr/actionBarSize"
-        app:title="Create Pallete"
-        app:titleTextColor="@color/white" />
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/back_img_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            app:tint="@color/back_button_color" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_centerHorizontal="true"
+            android:text="Create Pallete"
+            android:textSize="24sp"
+            android:textColor="@color/foreground_color"
+            android:fontFamily="@font/roboto"
+            android:textStyle="bold"
+            android:textAlignment="center"/>
+    </RelativeLayout>
 
 <!--    <ImageButton-->
 <!--        android:id="@+id/palleteBackBtn"-->
@@ -42,13 +59,13 @@
         android:layout_marginVertical="32dp"
         android:layout_marginHorizontal="38dp"
         android:layout_gravity="center_horizontal"
-        android:backgroundTint="@color/greyish"
+        android:backgroundTint="@color/gray"
         android:ems="10"
         android:fontFamily="@font/roboto_bold"
         android:hint="Pallete name"
         android:inputType="textPersonName"
         android:textColor="@color/foreground_color"
-        android:textColorHint="@color/greyish" />
+        android:textColorHint="@color/gray" />
 
     <androidx.gridlayout.widget.GridLayout
         android:id="@+id/gridLayout"
@@ -61,22 +78,21 @@
         app:rowCount="2">
     </androidx.gridlayout.widget.GridLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/addPalleteBtn"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginHorizontal="100dp"
-            android:layout_marginVertical="32dp"
-            app:cornerRadius="3dp"
-            android:layout_gravity="center_horizontal"
-            android:fontFamily="@font/roboto_bold"
-            android:text="Finish"
-            android:textColor="@color/white"
-            android:visibility="visible" />
 
     </LinearLayout>
 
-
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/addPalleteBtn"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="100dp"
+        android:layout_marginVertical="40dp"
+        app:cornerRadius="3dp"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Finish"
+        android:textColor="@color/white"
+        android:visibility="visible" />
 
 
 

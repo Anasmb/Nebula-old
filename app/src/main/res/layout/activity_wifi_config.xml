@@ -1,47 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    android:id="@+id/wifi_config_parent_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/mainLayout"
+
     android:orientation="vertical"
     android:background="@color/background_color">
 
 
-    <ImageButton
-        android:id="@+id/backBtn"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:background="#00FFFFFF"
-        android:onClick="openPrevious"
-        app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
+        android:padding="16dp">
 
-    <TextView
-        android:id="@+id/selectWifiTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginVertical="10dp"
-        android:fontFamily="@font/arial_rounded_mt_bold"
-        android:text="Select Wi-Fi Network "
-        android:textAlignment="center"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        <ImageView
+            android:id="@+id/back_img_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            app:tint="@color/back_button_color"
+            android:tag="previous"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_centerHorizontal="true"
+            android:text="Select Wi-Fi Network"
+            android:textSize="24sp"
+            android:textColor="@color/foreground_color"
+            android:fontFamily="@font/roboto"
+            android:textStyle="bold"
+            android:textAlignment="center"/>
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/wifiList"
-        android:layout_width="380dp"
-        android:layout_height="500dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginVertical="10dp"
+        android:padding="16dp"
         android:background="@color/background_color"
         android:drawSelectorOnTop="true"
         android:visibility="visible">
-
     </ListView>
 
     <ProgressBar

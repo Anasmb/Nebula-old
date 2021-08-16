@@ -3,31 +3,31 @@ package com.example.panels;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.ContentFrameLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 import com.example.panels.Adapter.PalleteAdapter;
 import com.example.panels.Model.Pallete;
 import com.example.panels.SharedPref.SharedPref;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
@@ -37,27 +37,24 @@ public class HomeFragment extends Fragment {
     private static final String LOG_TAG =  "HomeFragment";
     private FragmentHomeListener listener;
     private ImageButton emitButton; // connected with isOn
+    private boolean isEmit;
     private DividerItemDecoration itemDecoration;
     private FloatingActionButton floatingActionButton;
-    private boolean isOn = true;
-
-    public interface FragmentHomeListener{ //USE THIS TO SEND DATA TO MainActivity
-        void onInputHomeSent(CharSequence input, Pallete pallete);
-    }
 
     RecyclerView palleteList;
     PalleteAdapter adapter;
     ArrayList<Pallete> list=new ArrayList<>();
     Pallete deletedPallete = null;
 
-
+    public interface FragmentHomeListener{ //USE THIS TO SEND DATA TO MainActivity
+        void onInputHomeSent(CharSequence input, Pallete pallete);
+    }
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
 
       //  emitButton = view.findViewById(R.id.emitButton);
 
@@ -73,6 +70,10 @@ public class HomeFragment extends Fragment {
         list.clear();
         list.addAll(SharedPref.getPalleteList(getActivity()));
 
+        emitButton = view.findViewById(R.id.emitButton);
+        emitButton.setOnClickListener(emitButtonClickListener);
+        isEmit = MainActivity.isOn;
+        checkEmitStatus();
         floatingActionButton = view.findViewById(R.id.floatingAddPalleteButton);
         palleteList=view.findViewById(R.id.recyclerView);
         palleteList.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -97,6 +98,8 @@ public class HomeFragment extends Fragment {
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback); //FOR SWIPE DELETE
         itemTouchHelper.attachToRecyclerView(palleteList); //FOR SWIPE DELETE
 
+        setStatusBarColor();
+
     }
 
     ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0 , ItemTouchHelper.LEFT) { //WHEN THE USER SWIPE THE PALLETE THIS IS CALLED
@@ -112,8 +115,8 @@ public class HomeFragment extends Fragment {
             switch (direction){
                 
                 case ItemTouchHelper.LEFT:
-                     String deletedName = list.get(position).getPalleteName();
-                     deletedPallete = list.get(position);
+                //     String deletedName = list.get(position).getPalleteName(); // USE THIS FOR UNDO FUNCTIONALITY
+                 //    deletedPallete = list.get(position);   // USE THIS FOR UNDO FUNCTIONALITY
                     list.remove(position);
                     adapter.notifyItemRemoved(position);
                     SharedPref.DeletePallete(getContext(), position);
@@ -143,6 +146,18 @@ public class HomeFragment extends Fragment {
                     break;
             }
 
+        }
+
+        @Override
+        public void onChildDraw(@NonNull @NotNull Canvas c, @NonNull @NotNull RecyclerView recyclerView, @NonNull @NotNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+
+            new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                    .addBackgroundColor(ContextCompat.getColor(getContext(), R.color.background_color))
+                    .addActionIcon(R.drawable.ic_baseline_delete_24)
+                    .create()
+                    .decorate();
+
+            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
         }
     };
 
@@ -191,16 +206,34 @@ public class HomeFragment extends Fragment {
         listener = null;
     }
 
-    public void setEmitButton(View view) {
-        isOn = !isOn;
-                if (isOn) {
-                    emitButton.setColorFilter(ContextCompat.getColor(getActivity().getApplicationContext(), R.color.button_color));
-                    //new Thread(new MainActivity.Thread3("all on")).start();
-                } else {
-                    emitButton.setColorFilter(ContextCompat.getColor(getActivity().getApplicationContext(), R.color.defult_8));
-                    // new Thread(new MainActivity.Thread3("all off")).start();
-                }
+    private void checkEmitStatus(){
+        if (isEmit){
+            emitButton.setColorFilter(ContextCompat.getColor(getActivity().getApplicationContext(), R.color.lighting_color));
+        }
+        else {
+            emitButton.setColorFilter(ContextCompat.getColor(getActivity().getApplicationContext(), R.color.gray));
+        }
+    }
 
+    View.OnClickListener emitButtonClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            isEmit = !isEmit;
+            listener.onInputHomeSent("isOn",null);
+            if (isEmit) {
+                emitButton.setColorFilter(ContextCompat.getColor(getActivity().getApplicationContext(), R.color.lighting_color));
+            } else {
+                emitButton.setColorFilter(ContextCompat.getColor(getActivity().getApplicationContext(), R.color.gray));
+            }
+        }
+    };
+
+
+
+    private void setStatusBarColor(){
+        Window window = getActivity().getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(getResources().getColor(R.color.background_color));
     }
 
 

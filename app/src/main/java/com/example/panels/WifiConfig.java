@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.net.DhcpInfo;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
@@ -22,24 +23,30 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class WifiConfig extends FragmentActivity {
  
-    private static final String LOG_TAG =  "AndroidExample";
+    private static final String LOG_TAG =  "WifiConfig";
     private static final int MY_REQUEST_CODE = 123;
     private WifiManager wifiManager;
+    LocationManager locationManager;
     private ListView listView;
     private List<ScanResult> results;
     private ArrayList<String> arrayList = new ArrayList<>();
     private ArrayAdapter adapter;
     private ProgressBar progress_circular;
     private CountDownTimer timer;
-    private ImageButton backbtn;
+    private ImageView backbtn;
     private String ssidName;
 
 
@@ -50,7 +57,11 @@ public class WifiConfig extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wifi_config);
 
-        backbtn = findViewById(R.id.backBtn);
+        checkLocationStatus();
+
+        backbtn = findViewById(R.id.back_img_button);
+        backbtn.setColorFilter(getResources().getColor(R.color.back_button_color));
+        backbtn.setOnClickListener(backImgClickListener);
         progress_circular=findViewById(R.id.progress_circular);
         progress_circular.setVisibility(View.GONE);
         listView = findViewById(R.id.wifiList);
@@ -67,13 +78,13 @@ public class WifiConfig extends FragmentActivity {
                     openNext();
            //     }
             //    else{
-               //     Toast.makeText(getApplicationContext(),"Connect To Nebula To Continue", Toast.LENGTH_LONG).show();
+               //     Toast.makeText(getApplicationContext(),"Connect To Nebula To Continue", Toast.LENGTH_LONG).show(); TODO MAKE IT SNACKBAR
                //     openPrevious(view);
               //  }
             }
         });
 
-        timer=new CountDownTimer(REFRESHTIME,REFRESHTIME)
+        timer = new CountDownTimer( REFRESHTIME , REFRESHTIME )
         {
             @Override
             public void onTick(long l)
@@ -88,6 +99,18 @@ public class WifiConfig extends FragmentActivity {
         }.start();
     }
 
+    private void checkLocationStatus() { // wifi scan only work if the location is on
+         locationManager = (LocationManager) getBaseContext().getSystemService(Context.LOCATION_SERVICE); //FIXME toast displaying even if the location is enabled
+        if(locationManager.isProviderEnabled(LOCATION_SERVICE)){
+            Log.d(LOG_TAG, "Location Enabled");
+        }
+        else if(!(locationManager.isProviderEnabled(LOCATION_SERVICE))) {
+            Log.d(LOG_TAG, "Location Disabled");
+          //  Toast.makeText(this, "Enable location to scan Wi-Fi", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
     public boolean checkConnectedWifi(){
         DhcpInfo dhcpInfo = wifiManager.getDhcpInfo();
         int ipNebula = dhcpInfo.gateway;
@@ -98,7 +121,14 @@ public class WifiConfig extends FragmentActivity {
         return false;
     }
 
-    public void openPrevious(View view){
+    View.OnClickListener backImgClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            openPrevious();
+        }
+    };
+
+    public void openPrevious(){
         onBackPressed();
       //  Fragment fragment = new BeforeConfigFragment();
       //  getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_empty,fragment).commit();
@@ -111,7 +141,7 @@ public class WifiConfig extends FragmentActivity {
 
     public void openNext(){
         Intent configIntent = new Intent(this, PasswordActivity.class);
-        configIntent.putExtra("ssid",""+ssidName);
+        configIntent.putExtra("ssid","" + ssidName);
         startActivity(configIntent);
         finish();
     }
@@ -139,7 +169,7 @@ public class WifiConfig extends FragmentActivity {
             {
                 if(!TextUtils.isEmpty(scanResult.SSID)  && notInList(scanResult.SSID))
                 {
-                    if(!scanResult.SSID.equals("Esp32")) {
+                    if(!scanResult.SSID.equals("Esp32")) { //TODO change esp32 name and make it dynamic to the product name
                         arrayList.add(scanResult.SSID);
                         adapter.notifyDataSetChanged();
                     }
@@ -152,6 +182,7 @@ public class WifiConfig extends FragmentActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        finish();
         timer.cancel();
     }
 
@@ -186,13 +217,14 @@ public class WifiConfig extends FragmentActivity {
                                 Manifest.permission.ACCESS_COARSE_LOCATION,
                                 Manifest.permission.ACCESS_FINE_LOCATION,
                                 Manifest.permission.ACCESS_WIFI_STATE,
-                                Manifest.permission.ACCESS_NETWORK_STATE
+                              //  Manifest.permission.ACCESS_NETWORK_STATE
                         }, MY_REQUEST_CODE);
                 scanWifi();
                 return;
             }
             scanWifi();
             Log.d(LOG_TAG, "Permissions Already Granted");
+            checkLocationStatus();
         }
     }
 
